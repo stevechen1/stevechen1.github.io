@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="参考文章 知乎##一 call bind apply">
+    <meta name="description" content="参考文章 知乎 this的定义this的指向是不确定的，this就是属性或方法“当前”所在的对象（运行环境，找到此时this所在的环境，this代表的就是上层对象）多层this  var o &#x3D; {  f1: function () {    console.log(this);    var f2 &#x3D; function () {      console.log(this);    }();">
 <meta property="og:type" content="article">
 <meta property="og:title" content="this">
 <meta property="og:url" content="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/11/04/this/index.html">
 <meta property="og:site_name" content="lighter">
-<meta property="og:description" content="参考文章 知乎##一 call bind apply">
+<meta property="og:description" content="参考文章 知乎 this的定义this的指向是不确定的，this就是属性或方法“当前”所在的对象（运行环境，找到此时this所在的环境，this代表的就是上层对象）多层this  var o &#x3D; {  f1: function () {    console.log(this);    var f2 &#x3D; function () {      console.log(this);    }();">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-04T09:20:48.000Z">
-<meta property="article:modified_time" content="2021-11-17T12:11:49.653Z">
+<meta property="article:modified_time" content="2021-11-17T12:56:36.574Z">
 <meta property="article:author" content="chen">
 <meta property="article:tag" content="this">
 <meta name="twitter:card" content="summary">
@@ -333,7 +333,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">10</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">130</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -494,7 +494,13 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p>参考文章 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23804247">知乎</a><br>##一 call bind apply</p>
+        <p>参考文章 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23804247">知乎</a></p>
+<h2 id="this的定义"><a href="#this的定义" class="headerlink" title="this的定义"></a>this的定义</h2><p>this的指向是不确定的，this就是属性或方法“当前”所在的对象（运行环境，找到此时this所在的环境，this代表的就是上层对象）<br>多层this</p>
+<blockquote>
+<p>var o = {<br>  f1: function () {<br>    console.log(this);<br>    var f2 = function () {<br>      console.log(this);<br>    }();<br>  }<br>}<br>o.f1()<br>// Object<br>// Window<br><strong>第一个指代的是o ,第二个指代的是window(非严格模式)</strong></p>
+</blockquote>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="绑定-this"><a href="#绑定-this" class="headerlink" title="绑定_this"></a>绑定_this</h3><p><code>var _this = this</code><br>将对象绑定在_this里面</p>
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>严格模式下，指向顶层会报错</p>
 
     </article>
     <!-- license -->
@@ -503,7 +509,7 @@
             <p>原文作者：<a href="https://github.com/stevechen1/stevechen1.github.io/tree/master">chen</a>
             <p>原文链接：<a href="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/11/04/this/">https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/11/04/this/</a>
             <p>发表日期：<a href="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/11/04/this/">November 4th 2021, 5:20:48 pm</a>
-            <p>更新日期：<a href="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/11/04/this/">November 17th 2021, 8:11:49 pm</a>
+            <p>更新日期：<a href="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/11/04/this/">November 17th 2021, 8:56:36 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -652,7 +658,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#this%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">this的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A-this"><span class="toc-number">2.1.</span> <span class="toc-text">绑定_this</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">严格模式</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -696,7 +702,20 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -721,7 +740,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -735,6 +754,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span>
+            <a class="archive-post-title" href="/2021/11/19/dom/">DOM</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">11/17</span>
@@ -785,6 +810,11 @@
             <span class="sidebar-tag-name" data-tags="css">
                 <span class="iconfont-archer">&#xe606;</span>
                 css
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Dom">
+                <span class="iconfont-archer">&#xe606;</span>
+                Dom
             </span>
         
             <span class="sidebar-tag-name" data-tags="this">

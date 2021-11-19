@@ -428,6 +428,44 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/11/19/dom/">
+                
+                <span class="abstract-title-text">DOM</span>
+            </a>
+            <div class="abstract-content">
+                dcoumentdocument.doctypedocument.titledocument.characterSetdocument.headdocument.bodydocument.images
+属性返回当前文档的状态：readyState：loading interactive completecompatMode 
+document.location 关于urldocument.location = url
+document open()/write()/close()节点的获取css3    getElementById()    getElementByClass()   ...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/19">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/19</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Dom">Dom</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/11/17/this-1/">
                 
                 <span class="abstract-title-text">this</span>
@@ -544,8 +582,12 @@ function People(name, age){    this.name = name    this.age = age    //return �
                 <span class="abstract-title-text">this</span>
             </a>
             <div class="abstract-content">
-                参考文章 知乎##一 call bind apply
+                参考文章 知乎
+this的定义this的指向是不确定的，this就是属性或方法“当前”所在的对象（运行环境，找到此时this所在的环境，this代表的就是上层对象）多层this
 
+var o = {  f1: function () {    console.log(this);    var f2 = function () {      console.log(this);    }();  }}o.f1()// Object// Window第一个指代的是o ,第二个指代的是window(非严格模式)
+
+解决办法绑定_thisvar _this = this将对象绑定在_this里...
             </div>
             <!-- read more -->
             
@@ -761,7 +803,20 @@ Run server1$ hexo ...
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -786,7 +841,7 @@ Run server1$ hexo ...
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -800,6 +855,12 @@ Run server1$ hexo ...
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span>
+            <a class="archive-post-title" href="/2021/11/19/dom/">DOM</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">11/17</span>
@@ -850,6 +911,11 @@ Run server1$ hexo ...
             <span class="sidebar-tag-name" data-tags="css">
                 <span class="iconfont-archer">&#xe606;</span>
                 css
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Dom">
+                <span class="iconfont-archer">&#xe606;</span>
+                Dom
             </span>
         
             <span class="sidebar-tag-name" data-tags="this">
