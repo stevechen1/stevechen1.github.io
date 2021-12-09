@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="chen">
+  <meta name="keywords" content="">
+  <meta name="description" content="dcoumentdocument.doctypedocument.titledocument.characterSetdocument.headdocument.bodydocument.images 属性返回当前文档的状态：readyState：loading interactive completecompatMode  document.location 关于urldocument.loca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dom操作">
+<meta property="og:url" content="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/12/09/dom%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="lighter">
+<meta property="og:description" content="dcoumentdocument.doctypedocument.titledocument.characterSetdocument.headdocument.bodydocument.images 属性返回当前文档的状态：readyState：loading interactive completecompatMode  document.location 关于urldocument.loca">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637316438414.png">
+<meta property="article:published_time" content="2021-12-09T07:07:56.000Z">
+<meta property="article:modified_time" content="2021-12-09T07:09:07.989Z">
+<meta property="article:author" content="chen">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637316438414.png">
+  
+  <title>dom操作 - lighter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"__","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="dom操作">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-09 15:07" pubdate>
+        2021年12月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">dom操作</h1>
+            
+            <div class="markdown-body">
+              <h1 id="dcoument"><a href="#dcoument" class="headerlink" title="dcoument"></a>dcoument</h1><p><strong>document.doctype</strong><br><strong>document.title</strong><br><strong>document.characterSet</strong><br><strong>document.head</strong><br><strong>document.body</strong><br><strong>document.images</strong></p>
+<p><strong>属性返回当前文档的状态</strong>：readyState：loading interactive complete<br>compatMode </p>
+<h2 id="document-location-关于url"><a href="#document-location-关于url" class="headerlink" title="document.location 关于url"></a>document.location <strong>关于url</strong></h2><p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637316438414.png" srcset="/img/loading.gif" lazyload alt="实例"><br><code>document.location = url</code></p>
+<h2 id="document-open-write-close"><a href="#document-open-write-close" class="headerlink" title="document open()/write()/close()"></a>document open()/write()/close()</h2><h1 id="节点的获取"><a href="#节点的获取" class="headerlink" title="节点的获取"></a>节点的获取</h1><p><code>css3</code><br>    <strong>getElementById()</strong><br>    <strong>getElementByClass()</strong><br>    <strong>getElementByName()</strong><br>    <strong>getElementByTagName()</strong><br><code>用法</code></p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">document</span>.getElementByClass(<span class="hljs-string">&#x27;box&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p><code>css5</code><br>    <strong>querySelector()</strong><br>    <strong>querySelectorAll()</strong><br><code>tips</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> $ = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">selector</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">document</span>.querySelector(selector)<br>&#125;<br><span class="hljs-keyword">var</span> $$ = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">selector</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">document</span>.querySelectorAll(selector)<br>&#125;<br>$(<span class="hljs-string">&#x27;.box&#x27;</span>)   $$(<span class="hljs-string">&#x27;.box&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h2><p><strong>createElement()</strong><br>    <code>var newDiv = document.createElement(&quot;div&quot;);</code><br><strong>createTextNode()</strong></p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Div</span> = document.createElement(<span class="hljs-string">&quot;div&quot;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Content</span> = document.createTextNode(<span class="hljs-string">&quot;Hello&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p><strong>createDocumentFragment()</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-keyword">var</span> docFragment = <span class="hljs-built_in">document</span>.createDocumentFragment();<br></code></pre></td></tr></table></figure>
+<p><code>tips</code> fragment可以创建一个虚拟标签，dom操作减少</p>
+<h2 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h2><p><strong>appendChild</strong> 在元素末尾加元素</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Div</span> = document.createElement(<span class="hljs-string">&quot;div&quot;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Content</span> = document.createTextNode(<span class="hljs-string">&quot;Hello&quot;</span>);<br><span class="hljs-keyword">new</span><span class="hljs-type">Div</span>.appendChild(<span class="hljs-keyword">new</span><span class="hljs-type">Content</span>);<br></code></pre></td></tr></table></figure>
+<p><strong>insertBefore()</strong></p>
+<figure class="highlight plaintext"><figcaption><span>newDiv </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs var">var newContent = document.createTextNode(&quot;Hello&quot;);<br>newDiv.insertBefore(newContent, newDiv.firstChild);<br></code></pre></td></tr></table></figure>
+
+<p><strong>replaceChild()</strong></p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">new</span><span class="hljs-type">Div</span>.replaceChild(<span class="hljs-keyword">new</span><span class="hljs-type">Element</span>, oldElement);<br></code></pre></td></tr></table></figure>
+<p><strong>removeChild()</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">parentNode.remove<span class="hljs-constructor">Child(<span class="hljs-params">childNode</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p><strong>cloneNode()</strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.cloneNode</span>(true);(深克隆)<br></code></pre></td></tr></table></figure>
+<h2 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h2><p><strong>getAttribute()</strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p><strong>createAttribute()</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">attribute</span> = document.createAttribute(name)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<p><strong>setAttribute()</strong></p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">var <span class="hljs-keyword">node</span> <span class="hljs-title">= document</span>.getElementById(<span class="hljs-string">&quot;div1&quot;</span>);<br>node.setAttribute(<span class="hljs-string">&quot;my_attrib&quot;</span>, <span class="hljs-string">&quot;newVal&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p><strong>romoveAttribute()</strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.removeAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<h2 id="innerText和innerHTML"><a href="#innerText和innerHTML" class="headerlink" title="innerText和innerHTML"></a>innerText和innerHTML</h2><p><strong>innerText</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">node.innerText<span class="hljs-regexp">//</span><span class="hljs-string">&quot;hello world&quot;</span><br></code></pre></td></tr></table></figure>
+<p><strong>innerHTML</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c">node.innerHTML<span class="hljs-comment">//&quot;hello&lt;p&gt;world&lt;/p&gt; </span><br><span class="hljs-string">&quot;</span><br>node.innerHTML = &#x27;&lt;a&gt;&#x27;+<span class="hljs-number">90</span>+&#x27;&lt;/a&gt;&#x27;<span class="hljs-comment">//拼装json的数据</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>修改style</strong><br>//麻烦不用,使用class操作</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-keyword">var</span> node = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>)<br><span class="hljs-keyword">var</span> <span class="hljs-built_in">color</span> = <span class="hljs-built_in">window</span>.getComputedStyle(node).color<br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">color</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="class操作"><a href="#class操作" class="headerlink" title="class操作"></a>class操作</h2><p><strong>add</strong><br><strong>remove</strong><br><strong>toggle</strong><br><strong>contains</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> nodeBox = document<span class="hljs-selector-class">.querySelector</span>(<span class="hljs-string">&#x27;.box&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>( nodeBox<span class="hljs-selector-class">.classList</span> )<br>nodeBox<span class="hljs-selector-class">.classList</span><span class="hljs-selector-class">.add</span>(<span class="hljs-string">&#x27;active&#x27;</span>)   <span class="hljs-comment">//新增 class</span><br>nodeBox<span class="hljs-selector-class">.classList</span><span class="hljs-selector-class">.remove</span>(<span class="hljs-string">&#x27;active&#x27;</span>)  <span class="hljs-comment">//删除 class</span><br>nodeBox<span class="hljs-selector-class">.classList</span><span class="hljs-selector-class">.toggle</span>(<span class="hljs-string">&#x27;active&#x27;</span>)   <span class="hljs-comment">//新增/删除切换</span><br>node<span class="hljs-selector-class">.classList</span><span class="hljs-selector-class">.contains</span>(<span class="hljs-string">&#x27;active&#x27;</span>)   <span class="hljs-comment">// 判断是否拥有 class</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="页面的高度"><a href="#页面的高度" class="headerlink" title="页面的高度"></a>页面的高度</h2><p><strong>clientHeight</strong> //content+padding<br><strong>offsetHeight</strong>//content + padding +border<br><strong>scrollHeight</strong>// 滚动距离<br><strong>scrollTop</strong>//当前目标距离顶部的距离<br><strong>window.innerHeight</strong>//不变（相对）<br><strong>element.getBoundingClientRect()</strong>//</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">node.getBoundingClientRect()</span><br><span class="hljs-string">//DOMRect&#123;x:</span> <span class="hljs-number">8</span><span class="hljs-string">,</span> <span class="hljs-attr">y:</span> <span class="hljs-number">8</span><span class="hljs-string">,</span> <span class="hljs-attr">width:</span> <span class="hljs-number">856</span><span class="hljs-string">,</span> <span class="hljs-attr">height:</span> <span class="hljs-number">57.60000228881836</span><span class="hljs-string">,</span> <span class="hljs-attr">top:</span> <span class="hljs-number">8</span><span class="hljs-string">,</span> <span class="hljs-string">…&#125;</span><br></code></pre></td></tr></table></figure>
+<p><code>tips</code><br>scrollTop + clientHeight = scrollHeight//是否到达底部的判断<br>对象是否在页面中判断//<strong>懒加载</strong></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><strong>HTMLCllection和NodeList(forEach)</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/09/ajax%E4%B8%8Emock%E6%95%B0%E6%8D%AE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ajax与mock数据</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/25/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/">
+                        <span class="hidden-mobile">回调函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
