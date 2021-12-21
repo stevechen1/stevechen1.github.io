@@ -210,6 +210,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -237,9 +245,9 @@
             
             <div class="markdown-body">
               <h2 id="函数声明三种方式"><a href="#函数声明三种方式" class="headerlink" title="函数声明三种方式"></a>函数声明三种方式</h2><ul>
-<li>function(){}<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(s) &#123;<br>  console.log(s);<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li>函数表达式<br>将匿名函数赋值给print<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran">var <span class="hljs-built_in">print</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(s)</span></span> &#123;<br>  console.<span class="hljs-built_in">log</span>(s); <br>&#125;;<br></code></pre></td></tr></table></figure></li>
-<li>Function构造函数<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs oxygene"><span class="hljs-keyword">var</span> <span class="hljs-keyword">add</span> = <span class="hljs-keyword">new</span> <span class="hljs-function"><span class="hljs-keyword">Function</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  <span class="hljs-string">&#x27;x&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">  <span class="hljs-string">&#x27;y&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">  <span class="hljs-string">&#x27;return x + y&#x27;</span></span></span><br><span class="hljs-params"><span class="hljs-function">)</span>;</span><br></code></pre></td></tr></table></figure>
+<li>function(){}<figure class="highlight ada"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(s) &#123;<br>  console.log(s);<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li>函数表达式<br>将匿名函数赋值给print<figure class="highlight fortran"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs fortran">var <span class="hljs-built_in">print</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(s)</span></span> &#123;<br>  console.<span class="hljs-built_in">log</span>(s); <br>&#125;;<br></code></pre></div></td></tr></table></figure></li>
+<li>Function构造函数<figure class="highlight oxygene"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs oxygene"><span class="hljs-keyword">var</span> <span class="hljs-keyword">add</span> = <span class="hljs-keyword">new</span> <span class="hljs-function"><span class="hljs-keyword">Function</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  <span class="hljs-string">&#x27;x&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">  <span class="hljs-string">&#x27;y&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">  <span class="hljs-string">&#x27;return x + y&#x27;</span></span></span><br><span class="hljs-params"><span class="hljs-function">)</span>;</span><br></code></pre></div></td></tr></table></figure>
 <h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2>按照 MDN 的描述：回调函数是作为参数传给另一个函数的函数，然后通过在外部函数内部调用该回调函数以完成某种操作。</li>
 </ul>
 <p>简单来说，回调函数是一个函数，将会在另一个函数完成执行后<strong>立即执行</strong>。回调函数是一个作为参数传给另一个 JavaScript 函数的函数。这个回调函数会在传给的函数内部执行 。</p>
@@ -397,6 +405,8 @@
   
 
 
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 

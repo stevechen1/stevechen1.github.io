@@ -217,6 +217,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -248,9 +256,9 @@
 <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>前缀是动词 小驼峰<br><code>function canRead()&#123; return true &#125;</code><br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637511383743.png" srcset="/img/loading.gif" lazyload alt="常见"><br>常见动词如上</p>
 <h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>名称全部大写 使用大写字母和下划线的组合来命名，下划线用以分割单词<br><code>var MAX_COUNT = 10;</code></p>
 <h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>大驼峰命名方法 首字母大写<br><code>function Student(e)&#123; this.name = e&#125;</code></p>
-<h3 id="类的成员"><a href="#类的成员" class="headerlink" title="类的成员"></a>类的成员</h3><h4 id="公共属性-与变量相同"><a href="#公共属性-与变量相同" class="headerlink" title="公共属性 与变量相同"></a>公共属性 与变量相同</h4><h4 id="私有属性-前缀是下划线-后面和公共属性一样"><a href="#私有属性-前缀是下划线-后面和公共属性一样" class="headerlink" title="私有属性 前缀是下划线_ 后面和公共属性一样"></a>私有属性 前缀是下划线_ 后面和公共属性一样</h4><h2 id="注释的规范"><a href="#注释的规范" class="headerlink" title="注释的规范"></a>注释的规范</h2><h3 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> maxCount = <span class="hljs-number">10</span>;<span class="hljs-comment">// 单行注释</span><br></code></pre></td></tr></table></figure>
-<h3 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-comment">/*多行注释</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">多行注释*/</span><br></code></pre></td></tr></table></figure>
-<h3 id="函数（方法）的注释"><a href="#函数（方法）的注释" class="headerlink" title="函数（方法）的注释"></a>函数（方法）的注释</h3><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">/**<br><span class="hljs-bullet">* </span>函数说明 <br><span class="hljs-bullet">* </span>@关键字 <br>*/<br></code></pre></td></tr></table></figure>
+<h3 id="类的成员"><a href="#类的成员" class="headerlink" title="类的成员"></a>类的成员</h3><h4 id="公共属性-与变量相同"><a href="#公共属性-与变量相同" class="headerlink" title="公共属性 与变量相同"></a>公共属性 与变量相同</h4><h4 id="私有属性-前缀是下划线-后面和公共属性一样"><a href="#私有属性-前缀是下划线-后面和公共属性一样" class="headerlink" title="私有属性 前缀是下划线_ 后面和公共属性一样"></a>私有属性 前缀是下划线_ 后面和公共属性一样</h4><h2 id="注释的规范"><a href="#注释的规范" class="headerlink" title="注释的规范"></a>注释的规范</h2><h3 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h3><figure class="highlight actionscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> maxCount = <span class="hljs-number">10</span>;<span class="hljs-comment">// 单行注释</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h3><figure class="highlight actionscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript"><span class="hljs-comment">/*多行注释</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">多行注释*/</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="函数（方法）的注释"><a href="#函数（方法）的注释" class="headerlink" title="函数（方法）的注释"></a>函数（方法）的注释</h3><figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc">/**<br><span class="hljs-bullet">* </span>函数说明 <br><span class="hljs-bullet">* </span>@关键字 <br>*/<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637512059055.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="框架开发"><a href="#框架开发" class="headerlink" title="框架开发"></a>框架开发</h1><h2 id="全局变量冲突"><a href="#全局变量冲突" class="headerlink" title="全局变量冲突"></a>全局变量冲突</h2><p>在团队开发或者引入第三方JS文件时，有时会造成全局对象的名称冲突，比如a.js有个全局函数sendMsg()，b.js也又有个全局函数sendMsg()，引入a.js和b.js文件时，会造成sendMsg()函数冲突<br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637512305486.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="单全局变量"><a href="#单全局变量" class="headerlink" title="单全局变量"></a>单全局变量</h2><p>　所创建的全局对象名称是独一无二的，并将所有的功能代码添加到这个全局对象上。调用自己所写的代码时，以这个全局对象为入口点。<br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637512325272.png" srcset="/img/loading.gif" lazyload><br>比如</p>
@@ -417,6 +425,8 @@
   
 
 
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 

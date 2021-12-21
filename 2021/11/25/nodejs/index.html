@@ -211,6 +211,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -243,7 +251,7 @@
 <ul>
 <li>req<br>服务器解析返回数据  res</li>
 <li>res 中解析url,来对应相应的文件</li>
-<li>nodejs 中有一个个模块 reauire()方法来调用模块 模块中也有对应的方法<br>比如<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;http&#x27;</span>)</span></span> <span class="hljs-comment">//建立服务器</span><br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;path&#x27;</span>)</span></span> <span class="hljs-comment">//不同系统之间文件的读取url不同 / \</span><br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;fs&#x27;</span>)</span></span> <span class="hljs-comment">// 读取文件</span><br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;url&#x27;</span>)</span></span> <span class="hljs-comment">//读取url</span><br></code></pre></td></tr></table></figure>
+<li>nodejs 中有一个个模块 reauire()方法来调用模块 模块中也有对应的方法<br>比如<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;http&#x27;</span>)</span></span> <span class="hljs-comment">//建立服务器</span><br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;path&#x27;</span>)</span></span> <span class="hljs-comment">//不同系统之间文件的读取url不同 / \</span><br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;fs&#x27;</span>)</span></span> <span class="hljs-comment">// 读取文件</span><br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;url&#x27;</span>)</span></span> <span class="hljs-comment">//读取url</span><br></code></pre></div></td></tr></table></figure>
 <hr>
  浏览器到服务器的流程</li>
 </ul>
@@ -406,6 +414,8 @@
   
 
 
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 

@@ -211,6 +211,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -238,9 +246,9 @@
             
             <div class="markdown-body">
               <p>css 中的:hover对其他元素<strong>产生作用</strong>的可以使用的情况有以下几种<br>1.其他元素在child中 直接空格就可以使用</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">.box</span><span class="hljs-function">:hover</span> <span class="hljs-string">.child</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs jboss-cli"><span class="hljs-string">.box</span><span class="hljs-function">:hover</span> <span class="hljs-string">.child</span><br></code></pre></div></td></tr></table></figure>
 <p>2.其他元素在同级中 通过选择器~ or +有共同的父元素 (相邻兄弟选择器 (+) 通用兄弟选择器 (~) )</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-class">.box1</span><span class="hljs-selector-pseudo">:hover</span> ~ <span class="hljs-selector-class">.box2</span><br><span class="hljs-selector-class">.box1</span><span class="hljs-selector-pseudo">:hover</span> + .box2<br></code></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-selector-class">.box1</span><span class="hljs-selector-pseudo">:hover</span> ~ <span class="hljs-selector-class">.box2</span><br><span class="hljs-selector-class">.box1</span><span class="hljs-selector-pseudo">:hover</span> + .box2<br></code></pre></div></td></tr></table></figure>
 <p>总结： 上述只是简单的css中的操作 以上都可以通过js 的calss操作解决</p>
 
             </div>
@@ -401,6 +409,8 @@
   
 
 
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 

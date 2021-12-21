@@ -211,6 +211,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -237,7 +245,7 @@
             <h1 style="display: none">ajax与mock数据</h1>
             
             <div class="markdown-body">
-              <h1 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h1><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-type">XMLHttpRequest</span>()<br>   xhr.open(<span class="hljs-string">&#x27;GET&#x27;</span>,<span class="hljs-string">&#x27;/login/index&#x27;</span>,<span class="hljs-literal">true</span>)  <span class="hljs-comment">//get &#x27;/login?usename=jirengu&amp;password=123&#x27; 拼接url</span><br>   xhr.send()  <span class="hljs-comment">// POST 在send()里面加入资源</span><br></code></pre></td></tr></table></figure>
+              <h1 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h1><figure class="highlight haxe"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs haxe"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-type">XMLHttpRequest</span>()<br>   xhr.open(<span class="hljs-string">&#x27;GET&#x27;</span>,<span class="hljs-string">&#x27;/login/index&#x27;</span>,<span class="hljs-literal">true</span>)  <span class="hljs-comment">//get &#x27;/login?usename=jirengu&amp;password=123&#x27; 拼接url</span><br>   xhr.send()  <span class="hljs-comment">// POST 在send()里面加入资源</span><br></code></pre></div></td></tr></table></figure>
 <h2 id="先介绍XMLhttprequest"><a href="#先介绍XMLhttprequest" class="headerlink" title="先介绍XMLhttprequest()"></a>先介绍XMLhttprequest()</h2><h3 id="常见属性"><a href="#常见属性" class="headerlink" title="常见属性"></a>常见属性</h3><ul>
 <li>XMLHttpRequest.onreadystatechange  readyState 属性发生变化时</li>
 </ul>
@@ -255,7 +263,7 @@
 </ul>
 <hr>
 <ul>
-<li>XMLHttpRequest.timeout <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();<br>xhr.open(<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;/server&#x27;</span>, <span class="hljs-literal">true</span>);<br>xhr.timeout = <span class="hljs-number">2000</span>; <span class="hljs-comment">// 超时时间，单位是毫秒</span><br><br>xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>&#123;<br><span class="hljs-comment">// 请求完成。在此进行处理。</span><br>&#125;;<br>xhr.ontimeout = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(e)</span> </span>&#123;<br><span class="hljs-comment">// XMLHttpRequest 超时。在此做某事。</span><br>&#125;;<br>xhr.send(<span class="hljs-literal">null</span>);<br><br></code></pre></td></tr></table></figure></li>
+<li>XMLHttpRequest.timeout <figure class="highlight actionscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();<br>xhr.open(<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;/server&#x27;</span>, <span class="hljs-literal">true</span>);<br>xhr.timeout = <span class="hljs-number">2000</span>; <span class="hljs-comment">// 超时时间，单位是毫秒</span><br><br>xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>&#123;<br><span class="hljs-comment">// 请求完成。在此进行处理。</span><br>&#125;;<br>xhr.ontimeout = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(e)</span> </span>&#123;<br><span class="hljs-comment">// XMLHttpRequest 超时。在此做某事。</span><br>&#125;;<br>xhr.send(<span class="hljs-literal">null</span>);<br><br></code></pre></div></td></tr></table></figure></li>
 </ul>
 <hr>
 <ul>
@@ -287,7 +295,7 @@
 <hr>
 <h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><p>abort       //onbort<br>error       //onerror<br>load        //onload<br>loadend     //onloaded<br>loadstart   //onloadstart<br>progress    //onprogress<br>timeout     //ontimeout</p>
 <p><code>addEventListener可用</code></p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">addEventListener</span><span class="hljs-params">(<span class="hljs-string">&#x27;load&#x27;</span>, function()</span></span>&#123;<br><br>&#125;)<br></code></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">addEventListener</span><span class="hljs-params">(<span class="hljs-string">&#x27;load&#x27;</span>, function()</span></span>&#123;<br><br>&#125;)<br></code></pre></div></td></tr></table></figure>
 <h3 id="attention"><a href="#attention" class="headerlink" title="attention"></a>attention</h3><ul>
 <li>open &gt;&gt;&gt; true 异步 false 同步</li>
 </ul>
@@ -466,6 +474,8 @@
   
 
 
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
