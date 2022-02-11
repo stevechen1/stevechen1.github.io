@@ -13,23 +13,23 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
+  <meta name="description" content="呜呼！">
   <meta name="author" content="chen">
   <meta name="keywords" content="">
-  <meta name="description" content="display: flex + margin: auto 不限定宽高预览 display: grid 不限定宽高预览 绝对定位 position: absolute + calc() 限定宽高预览 absolute + margin预览 绝对定位 position: absolute + translate 不限定宽高预览 仿table布局 display: table&#x2F;table-cell +">
+  <meta name="description" content="前言  居中一直是一个让人头疼的问题，可以直接使用flex或者grid来直接做成效果，也可以通过一些技巧来实现同样的效果，比如一个内联元素居中可以使用flex的justify-content:center; 和 align-items: center;来实现，也可以通过text-align: center和line-height来实现。需要记住，这篇文章的并不是来比较各个方法之间的优劣，只是对我所">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次性搞清楚居中">
 <meta property="og:url" content="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/12/09/%E4%B8%80%E6%AC%A1%E6%80%A7%E6%90%9E%E6%B8%85%E6%A5%9A%E5%B1%85%E4%B8%AD/index.html">
-<meta property="og:site_name" content="lighter">
-<meta property="og:description" content="display: flex + margin: auto 不限定宽高预览 display: grid 不限定宽高预览 绝对定位 position: absolute + calc() 限定宽高预览 absolute + margin预览 绝对定位 position: absolute + translate 不限定宽高预览 仿table布局 display: table&#x2F;table-cell +">
+<meta property="og:site_name" content="12am">
+<meta property="og:description" content="前言  居中一直是一个让人头疼的问题，可以直接使用flex或者grid来直接做成效果，也可以通过一些技巧来实现同样的效果，比如一个内联元素居中可以使用flex的justify-content:center; 和 align-items: center;来实现，也可以通过text-align: center和line-height来实现。需要记住，这篇文章的并不是来比较各个方法之间的优劣，只是对我所">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-09T07:10:29.000Z">
-<meta property="article:modified_time" content="2021-12-09T07:18:11.044Z">
+<meta property="article:modified_time" content="2022-02-11T05:48:15.896Z">
 <meta property="article:author" content="chen">
 <meta property="article:tag" content="居中">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>一次性搞清楚居中 - lighter</title>
+  <title>一次性搞清楚居中 - 12am</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -120,18 +120,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -196,7 +184,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      245 字
+      2.8k 字
     </span>
   
 
@@ -205,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      9 分钟
     </span>
   
 
@@ -245,7 +233,52 @@
             <h1 style="display: none">一次性搞清楚居中</h1>
             
             <div class="markdown-body">
-              <h2 id="display-flex-margin-auto-不限定宽高"><a href="#display-flex-margin-auto-不限定宽高" class="headerlink" title="display: flex + margin: auto 不限定宽高"></a>display: flex + margin: auto 不限定宽高</h2><p><a target="_blank" rel="noopener" href="http://js.jirengu.com/fukacelelo/1/edit?html,css,output">预览</a></p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  居中一直是一个让人头疼的问题，可以直接使用flex或者grid来直接做成效果，也可以通过一些技巧来实现同样的效果，比如一个内联元素居中可以使用flex的<code>justify-content:center;</code> 和 <code>align-items: center;</code>来实现，也可以通过<code>text-align: center</code>和<code>line-height</code>来实现。需要记住，这篇文章的并不是来比较各个方法之间的优劣，只是对我所学的居中方法的梳理。<br>Go!</p>
+<h1 id="一、水平居中"><a href="#一、水平居中" class="headerlink" title="一、水平居中"></a>一、水平居中</h1><h2 id="1-内联元素"><a href="#1-内联元素" class="headerlink" title="1.内联元素"></a>1.内联元素</h2><p><code>text-align: center</code></p>
+<h2 id="2-inline-block"><a href="#2-inline-block" class="headerlink" title="2.inline-block"></a>2.inline-block</h2><p>父元素为块级元素使用<code>text-align: center</code> 水平居中</p>
+<h2 id="3-块级元素水平居中"><a href="#3-块级元素水平居中" class="headerlink" title="3.块级元素水平居中"></a>3.块级元素水平居中</h2><h3 id="1-单个元素"><a href="#1-单个元素" class="headerlink" title="(1) 单个元素"></a>(1) 单个元素</h3><p>使用<code>margin:0 auto;</code><br><br></p>
+<h3 id="2-父元素为块级元素"><a href="#2-父元素为块级元素" class="headerlink" title="(2) 父元素为块级元素"></a>(2) 父元素为块级元素</h3><h4 id="1-使用table布局左右自适应"><a href="#1-使用table布局左右自适应" class="headerlink" title="1)使用table布局左右自适应"></a>1)使用table布局左右自适应</h4><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-class">.inner</span> &#123;<br>   <span class="hljs-attribute">display</span>: table;<br>   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="2-多个元素在一行居中"><a href="#2-多个元素在一行居中" class="headerlink" title="2)多个元素在一行居中"></a>2)多个元素在一行居中</h4><h5 id="i-将块级元素变成inline-block"><a href="#i-将块级元素变成inline-block" class="headerlink" title="i.将块级元素变成inline-block"></a>i.将块级元素变成inline-block</h5><p>子元素上设置<code>display: inline-block</code> 父元素上使用<code>text-align:center</code> 就可以水平居中（注意inline-block之间有间隙，需要在父元素上加font-size:0,重新在子元素上设置font-size）</p>
+<h5 id="ii-使用flex布局"><a href="#ii-使用flex布局" class="headerlink" title="ii.使用flex布局"></a>ii.使用flex布局</h5><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">display</span>: flex;<br><span class="hljs-attribute">justify-content</span>: center;<br></code></pre></div></td></tr></table></figure>
+<h4 id="3-多个元素在一列中居中"><a href="#3-多个元素在一列中居中" class="headerlink" title="3)多个元素在一列中居中"></a>3)多个元素在一列中居中</h4><p>直接父元素<code>text-align: center</code>,子元素<code>margin: auto;</code></p>
+<h3 id="3-使用定位水平居中"><a href="#3-使用定位水平居中" class="headerlink" title="(3)使用定位水平居中"></a>(3)使用定位水平居中</h3><p>父元素相对定位，子元素绝对定位<br>子元素</p>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">position</span>: absolute;<br><span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;<br><span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-<span class="hljs-number">50%</span>);<br></code></pre></div></td></tr></table></figure>
+<h2 id="4、浮动元素水平居中"><a href="#4、浮动元素水平居中" class="headerlink" title="4、浮动元素水平居中"></a>4、浮动元素水平居中</h2><p>清除浮动</p>
+<h3 id="1-浮动元素定宽-：-位相-负宽一半margin"><a href="#1-浮动元素定宽-：-位相-负宽一半margin" class="headerlink" title="(1)浮动元素定宽  ： 位相 + 负宽一半margin"></a>(1)浮动元素定宽  ： 位相 + 负宽一半margin</h3><p>使用相对定位<code>position: 50% </code> + <code>margin-left: -自身宽度的一半</code></p>
+<h3 id="2-浮动元素不指定宽度：-父子位相左浮，左右各50"><a href="#2-浮动元素不指定宽度：-父子位相左浮，左右各50" class="headerlink" title="(2) 浮动元素不指定宽度： 父子位相左浮，左右各50%"></a>(2) 浮动元素不指定宽度： 父子位相左浮，左右各50%</h3><p>父元素左浮动 + <code>position: relative;</code> +<code>left: 50%;</code> 父元素左边水平居中<br>子元素左浮动 +<code>position: relative</code> + <code>right: 50%;</code>  子元素在父元素左边的位置上，左移自身宽度的50%，水平居中</p>
+<h3 id="3-flex布局"><a href="#3-flex布局" class="headerlink" title="(3) flex布局"></a>(3) flex布局</h3><p><code>display: flex ;</code><br><code>justify-content: center;</code><br><em>使用</em></p>
+<h1 id="二、垂直居中"><a href="#二、垂直居中" class="headerlink" title="二、垂直居中"></a>二、垂直居中</h1><h2 id="1-内联元素垂直居中"><a href="#1-内联元素垂直居中" class="headerlink" title="1.内联元素垂直居中"></a>1.内联元素垂直居中</h2><h3 id="1-单行内联元素"><a href="#1-单行内联元素" class="headerlink" title="(1)  单行内联元素"></a>(1)  单行内联元素</h3><h4 id="1-使用填充"><a href="#1-使用填充" class="headerlink" title="1) 使用填充"></a>1) 使用填充</h4><p>上下padding相等</p>
+<h4 id="2）-使用行高"><a href="#2）-使用行高" class="headerlink" title="2） 使用行高"></a>2） 使用行高</h4><p><code>line-height: val</code><br>val使用的是父元素的高度</p>
+<h3 id="2-多行内联元素"><a href="#2-多行内联元素" class="headerlink" title="(2) 多行内联元素"></a>(2) 多行内联元素</h3><h4 id="1）使用display-table"><a href="#1）使用display-table" class="headerlink" title="1）使用display:table"></a>1）使用<code>display:table</code></h4><p>父元素 <code>display: table;</code><br>子元素 <code>display: table-cell;  vertiacal-align: middle;</code></p>
+<h4 id="2-使用flex"><a href="#2-使用flex" class="headerlink" title="2) 使用flex"></a>2) 使用flex</h4><p>父元素有宽度是才可以使用<br><code>display: flex;</code><br><code>flex-direction: column;</code><br><code>justify-content: center;</code></p>
+<h4 id="3-使用伪元素"><a href="#3-使用伪元素" class="headerlink" title="3) 使用伪元素"></a>3) 使用伪元素</h4><p>父元素有高度<br>父元素使用<code>::before</code> 或<code> ::after</code></p>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">display</span>: inline-block;<br><span class="hljs-attribute">vertical-align</span>: middle;<br><span class="hljs-attribute">height</span>:<span class="hljs-number">100%</span>;    `伪元素需要高度撑开`<br></code></pre></div></td></tr></table></figure>
+<p>子元素<br><code>vertical-align: middle;</code></p>
+<h2 id="2、块级元素垂直居中"><a href="#2、块级元素垂直居中" class="headerlink" title="2、块级元素垂直居中"></a>2、块级元素垂直居中</h2><h3 id="1-定高：-父相对子绝对-上50-负上高度一般margin"><a href="#1-定高：-父相对子绝对-上50-负上高度一般margin" class="headerlink" title="(1) 定高： 父相对子绝对 + 上50% + 负上高度一般margin"></a>(1) 定高： 父相对子绝对 + 上50% + 负上高度一般margin</h3><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute;</code><br><code>top: calc(50% - 自身高度)</code><br><code>line-height: 自身高度</code>   （文本垂直居中）</p>
+<h3 id="2-未知高度"><a href="#2-未知高度" class="headerlink" title="(2) 未知高度"></a>(2) 未知高度</h3><h4 id="1-父相对子绝对-上50-上偏移50"><a href="#1-父相对子绝对-上50-上偏移50" class="headerlink" title="1) 父相对子绝对 + 上50%  + 上偏移50%"></a>1) 父相对子绝对 + 上50%  + 上偏移50%</h4><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute;</code><br><code> top: 50%;</code><br><code>transform: translateY(-50%)</code></p>
+<h4 id="2-父table布局-子table-cell-vertical-align-middle"><a href="#2-父table布局-子table-cell-vertical-align-middle" class="headerlink" title="2) 父table布局 + 子table-cell + vertical-align: middle"></a>2) 父table布局 + 子table-cell + vertical-align: middle</h4><p>父元素 <code>display: table</code></p>
+<p>子元素<br><code>display: table-cell</code><br><code> vertiacal-align: middle</code></p>
+<h4 id="3-父flex-align-items"><a href="#3-父flex-align-items" class="headerlink" title="3) 父flex + align-items"></a>3) 父flex + align-items</h4><p>父元素 <code>display: flex;</code><br><code>align-items: center;</code></p>
+<h4 id="4-父flex-flex-direction-column-justify-content-center"><a href="#4-父flex-flex-direction-column-justify-content-center" class="headerlink" title="4) 父flex +flex-direction: column +justify-content: center"></a>4) 父flex +flex-direction: column +justify-content: center</h4><p>父元素 <code>display: flex;</code><br><code>flex-direction: column</code><br><code>justify-content: center </code></p>
+<p>使用伪元素::after 或 ::before和<code>vertical-align:middle</code></p>
+<h1 id="三、水平垂直居中"><a href="#三、水平垂直居中" class="headerlink" title="三、水平垂直居中"></a>三、水平垂直居中</h1><h2 id="1、定宽高-：-父相对子绝对-左、上50-负margin左上一半高度"><a href="#1、定宽高-：-父相对子绝对-左、上50-负margin左上一半高度" class="headerlink" title="1、定宽高 ： 父相对子绝对 + 左、上50% + 负margin左上一半高度"></a>1、定宽高 ： 父相对子绝对 + 左、上50% + 负margin左上一半高度</h2><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute</code><br><code> top: 50%</code><br><code> left: 50%</code><br><code>margin: -50px 0  0 -25px</code></p>
+<h2 id="2、宽高未知-：-父相对子绝对-transform"><a href="#2、宽高未知-：-父相对子绝对-transform" class="headerlink" title="2、宽高未知 ： 父相对子绝对 + transform"></a>2、宽高未知 ： 父相对子绝对 + transform</h2><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute;</code><br><code> top: 50%;</code><br><code>transform: translate(-50%, -50%)</code></p>
+<h2 id="3、父flex-justify-content-align-items"><a href="#3、父flex-justify-content-align-items" class="headerlink" title="3、父flex + justify-content + align-items"></a>3、父flex + justify-content + align-items</h2><p>父元素 <code>display: flex;</code><br><code>align-items: center;</code><br><code>justify-content: center; </code></p>
+<h2 id="4、父grid-flex-子-margin-auto"><a href="#4、父grid-flex-子-margin-auto" class="headerlink" title="4、父grid/flex  + 子 margin: auto"></a>4、父grid/flex  + 子 margin: auto</h2><p>父元素 <code>display: grid</code>   或 <code>display: flex</code><br>子元素 <code>margin: auto</code></p>
+<p><em>nb</em></p>
+<h2 id="5、父table-cell布局-vertical-align-text-align"><a href="#5、父table-cell布局-vertical-align-text-align" class="headerlink" title="5、父table-cell布局 + vertical-align+ text-align"></a>5、父table-cell布局 + vertical-align+ text-align</h2><p>父元素 </p>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-class">.parent</span>&#123;<br>   <span class="hljs-attribute">display</span>: table-cell;<br>   <span class="hljs-attribute">vertical-align</span>: middle;<br>   <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="6、父相对子绝对-上下左右0-margin-auto"><a href="#6、父相对子绝对-上下左右0-margin-auto" class="headerlink" title="6、父相对子绝对 + 上下左右0 + margin: auto"></a>6、父相对子绝对 + 上下左右0 + margin: auto</h2><p>父元素 <code>psotion: relative</code></p>
+<p>子元素 </p>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">position</span>: absolute;<br> <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br> <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br> <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;<br> <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;<br> <span class="hljs-attribute">margin</span>: auto;<br></code></pre></div></td></tr></table></figure>
+
+
+<h1 id="四、实例"><a href="#四、实例" class="headerlink" title="四、实例"></a>四、实例</h1><h2 id="display-flex-margin-auto-不限定宽高"><a href="#display-flex-margin-auto-不限定宽高" class="headerlink" title="display: flex + margin: auto 不限定宽高"></a>display: flex + margin: auto 不限定宽高</h2><p><a target="_blank" rel="noopener" href="http://js.jirengu.com/fukacelelo/1/edit?html,css,output">预览</a></p>
 <h2 id="display-grid-不限定宽高"><a href="#display-grid-不限定宽高" class="headerlink" title="display: grid 不限定宽高"></a>display: grid 不限定宽高</h2><p><a target="_blank" rel="noopener" href="http://js.jirengu.com/kaqocikuza/1/edit?html,css,output">预览</a></p>
 <h2 id="绝对定位-position-absolute-calc-限定宽高"><a href="#绝对定位-position-absolute-calc-限定宽高" class="headerlink" title="绝对定位 position: absolute + calc() 限定宽高"></a>绝对定位 position: absolute + calc() 限定宽高</h2><p><a target="_blank" rel="noopener" href="http://js.jirengu.com/badenokoda/1/edit?html,css,output">预览</a></p>
 <h2 id="absolute-margin"><a href="#absolute-margin" class="headerlink" title="absolute + margin"></a>absolute + margin</h2><p><a target="_blank" rel="noopener" href="http://js.jirengu.com/piboyemuve/1/edit?html,css,output">预览</a></p>
@@ -274,9 +307,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/18/project/">
+                      <a href="/2021/12/13/a/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">项目</span>
+                        <span class="hidden-mobile">函数的防抖和节流</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -447,5 +480,5 @@
 <script  src="/js/boot.js" ></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/izumi.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
 </html>
