@@ -16,22 +16,20 @@
   <meta name="description" content="呜呼！">
   <meta name="author" content="chen">
   <meta name="keywords" content="">
-  <meta name="description" content="hexo下载 官网 node.js支持 安装&#96;npm install hexo-cli -g&#96;    配置github创建仓库 stevechen1.github.io 主题下载 配置 指令hexo inithexo new &#39;title&#39;hexo cleanhexo ghexo dhexo s">
+  <meta name="description" content="呜呼！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo+blog的实现">
-<meta property="og:url" content="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/11/01/11-1/index.html">
+<meta property="og:title" content="函数的防抖和节流">
+<meta property="og:url" content="https://github.com/stevechen1/stevechen1.github.io/tree/master/2021/12/13/%E9%98%B2%E6%8A%96+%E8%8A%82%E6%B5%81/index.html">
 <meta property="og:site_name" content="12am">
-<meta property="og:description" content="hexo下载 官网 node.js支持 安装&#96;npm install hexo-cli -g&#96;    配置github创建仓库 stevechen1.github.io 主题下载 配置 指令hexo inithexo new &#39;title&#39;hexo cleanhexo ghexo dhexo s">
+<meta property="og:description" content="呜呼！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637321579707.png">
-<meta property="article:published_time" content="2021-11-01T07:38:45.000Z">
-<meta property="article:modified_time" content="2021-11-19T11:36:21.651Z">
+<meta property="article:published_time" content="2021-12-13T10:35:04.000Z">
+<meta property="article:modified_time" content="2021-12-23T10:35:59.554Z">
 <meta property="article:author" content="chen">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="防抖和节流">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637321579707.png">
   
-  <title>hexo+blog的实现 - 12am</title>
+  <title>函数的防抖和节流 - 12am</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -165,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="hexo+blog的实现">
+            <span class="h2" id="subtitle" title="函数的防抖和节流">
               
             </span>
 
@@ -175,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-01 15:38" pubdate>
-        2021年11月1日 下午
+      <time datetime="2021-12-13 18:35" pubdate>
+        2021年12月13日 晚上
       </time>
     </span>
   
@@ -186,7 +184,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      135 字
+      0 字
     </span>
   
 
@@ -232,16 +230,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">hexo+blog的实现</h1>
+            <h1 style="display: none">函数的防抖和节流</h1>
             
             <div class="markdown-body">
-              <h1 id="hexo下载"><a href="#hexo下载" class="headerlink" title="hexo下载"></a>hexo下载</h1><p> <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">官网</a><br> node.js支持</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><div class="hljs code-wrapper"><pre><code>`npm install hexo-cli -g`  
-</code></pre></div>
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>github创建仓库 <code>stevechen1.github.io</code><br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637321579707.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p>下载 配置</p>
-<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><p><code>hexo init</code><br><code>hexo new &#39;title&#39;</code><br><code>hexo clean</code><br><code>hexo g</code><br><code>hexo d</code><br><code>hexo s</code></p>
-
+              
             </div>
             <hr>
             <div>
@@ -251,7 +243,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/blog/">blog</a>
+                      <a class="hover-with-bg" href="/tags/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/">防抖和节流</a>
                     
                   </div>
                 
@@ -262,15 +254,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/04/this/">
+                      <a href="/2021/12/18/project/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">this</span>
+                        <span class="hidden-mobile">项目</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/12/09/%E4%B8%80%E6%AC%A1%E6%80%A7%E6%90%9E%E6%B8%85%E6%A5%9A%E5%B1%85%E4%B8%AD/">
+                        <span class="hidden-mobile">一次性搞清楚居中</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
