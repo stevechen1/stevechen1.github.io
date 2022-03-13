@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>axios使用 与 源码解析*</title>
+    <url>/2021/12/21/axios+%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<h1 id="axios-使用"><a href="#axios-使用" class="headerlink" title="axios 使用"></a>axios 使用</h1><h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1.基本使用"></a>1.基本使用</h2><p>axios可以使用<strong>函数</strong>形式带入参数也可以使用<strong>对象方法</strong>来带入配置对象</p>
+<h3 id="i-函数axios-…"><a href="#i-函数axios-…" class="headerlink" title="i. 函数axios({….})"></a>i. 函数axios({….})</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//get</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts/2&#x27;</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//post</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    <span class="comment">//请求类型</span></span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="comment">//URL</span></span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span><br><span class="line">    <span class="comment">//设置请求体</span></span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;今天天气不错&#x27;</span>,</span><br><span class="line">        <span class="attr">author</span>: <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;suc&#x27;</span>,response);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="ii-对象的方法"><a href="#ii-对象的方法" class="headerlink" title="ii.对象的方法"></a>ii.对象的方法</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">    <span class="comment">//get</span></span><br><span class="line">    axios.get( <span class="string">&#x27;http://localhost:3000/comments&#x27;</span>).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(response);</span><br><span class="line">        &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(err);</span><br><span class="line">        &#125;); </span><br><span class="line">        <span class="comment">//POST</span></span><br><span class="line">         btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">         axios.post(<span class="string">&#x27;http://localhost:3000/comments&#x27;</span>,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">&quot;body&quot;</span>: <span class="string">&quot;妈妈咪呀&quot;</span>,</span><br><span class="line">                <span class="string">&quot;postId&quot;</span>: <span class="number">2</span></span><br><span class="line">             &#125;).then(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;</span><br><span class="line">                 <span class="built_in">console</span>.log(responese);</span><br><span class="line">             &#125;)</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h2 id="2-创建实例对象"><a href="#2-创建实例对象" class="headerlink" title="2.创建实例对象"></a>2.创建实例对象</h2><p>当需要请求多个地址的资源时，需要使用实例对象的方法来请求，使用api（ axios.create()）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instanceObj = axios.create(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;https://api.apiopen.top&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">2000</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// instanceObj 与 axios 的实例对象 的使用方法基本一直</span></span><br><span class="line">instanceObj(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/getJoke&#x27;</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.data.result[<span class="number">1</span>].text);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="3-常用配置介绍"><a href="#3-常用配置介绍" class="headerlink" title="3.常用配置介绍"></a>3.常用配置介绍</h2><p>url<br>method<br>baseURL<br>headers<br>params<br>data<br>timeout<br>cancelToken</p>
+<h2 id="4-默认配置"><a href="#4-默认配置" class="headerlink" title="4.默认配置"></a>4.默认配置</h2><p>可以配置默认值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.defaults.method = <span class="string">&#x27;GET&#x27;</span></span><br><span class="line">axios.defaults.baseURL = <span class="string">&#x27;http://localhost:3000&#x27;</span></span><br><span class="line">axios.defaults.params = &#123;<span class="attr">id</span>: <span class="number">199</span>&#125;</span><br><span class="line">axios.defaults.timeout = <span class="number">2000</span></span><br><span class="line">axios(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;/posts&#x27;</span></span><br><span class="line">    &#125;).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="5-拦截器"><a href="#5-拦截器" class="headerlink" title="5.拦截器"></a>5.拦截器</h2><h3 id="一、请求拦截器："><a href="#一、请求拦截器：" class="headerlink" title="一、请求拦截器："></a>一、请求拦截器：</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> config; <span class="comment">// config可以设置来影响默认设置</span></span><br><span class="line">        <span class="keyword">throw</span>   error     <span class="comment">// 直接走失败的.catch</span></span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Do something with request error</span></span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="二、接受拦截器"><a href="#二、接受拦截器" class="headerlink" title="二、接受拦截器"></a>二、接受拦截器</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> response; <span class="comment">// 可以对接受的结果进行处理，不需要接受所有的数据</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios(&#123;</span><br><span class="line">           <span class="attr">mehtod</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">           <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span></span><br><span class="line">       &#125;).then(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;</span><br><span class="line">           <span class="built_in">console</span>.log(response);</span><br><span class="line">       &#125;).catch(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">           <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">       &#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-取消请求"><a href="#6-取消请求" class="headerlink" title="6.取消请求"></a>6.取消请求</h2><p>在发送请求的基础上，在传入的配置对象中，添加属性cancelToke</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line">      <span class="keyword">let</span> cancel = <span class="literal">null</span></span><br><span class="line">      <span class="comment">//发送请求</span></span><br><span class="line">      btns[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="comment">//判断上一次请求是否结束</span></span><br><span class="line">          <span class="keyword">if</span>(cancel !== <span class="literal">null</span>)&#123;</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          &#125;</span><br><span class="line">          axios(&#123;</span><br><span class="line">              <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">              <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span><br><span class="line">              <span class="comment">//添加配置对象的属性</span></span><br><span class="line">              <span class="attr">cancelToken</span>: <span class="keyword">new</span> axios.CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">c</span>)</span>&#123;</span><br><span class="line">                  <span class="comment">//将c的值赋给cancel</span></span><br><span class="line">                  cancel = c</span><br><span class="line">                  <span class="built_in">console</span>.log(cancel);</span><br><span class="line">              &#125;)</span><br><span class="line">          &#125;).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;返回值&#x27;</span>,res);</span><br><span class="line">              <span class="comment">//当完成时cancel变为null</span></span><br><span class="line">              cancel = <span class="literal">null</span></span><br><span class="line">          &#125;).catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;err&#x27;</span>,err);</span><br><span class="line">          &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//取消请求</span></span><br><span class="line">      btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          cancel()</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>axios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ajax与mock数据</title>
+    <url>/2021/12/09/ajax%E4%B8%8Emock%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<h1 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest()</span><br><span class="line">   xhr.open(&#x27;GET&#x27;,&#x27;/login/index&#x27;,true)  //get &#x27;/login?usename=jirengu&amp;password=123&#x27; 拼接url</span><br><span class="line">   xhr.send()  // POST 在send()里面加入资源</span><br></pre></td></tr></table></figure>
+<h2 id="先介绍XMLhttprequest"><a href="#先介绍XMLhttprequest" class="headerlink" title="先介绍XMLhttprequest()"></a>先介绍XMLhttprequest()</h2><h3 id="常见属性"><a href="#常见属性" class="headerlink" title="常见属性"></a>常见属性</h3><ul>
+<li>XMLHttpRequest.onreadystatechange  readyState 属性发生变化时</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.readyState  返回 一个无符号短整型（unsigned<br>short）数字，代表请求的状态码</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.response  返回一个 ArrayBuffer、Blob、Document，或 DOMString，具体是哪种类型取决于 XMLHttpRequest.* responseType 的值。其中包含整个响应实体<br><code>**json text document &#39;&#39; blob ...**</code></li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.status<br>  状态值  (200~300 || 304)</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.timeout <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.open(&#x27;GET&#x27;, &#x27;/server&#x27;, true);</span><br><span class="line">xhr.timeout = 2000; // 超时时间，单位是毫秒</span><br><span class="line"></span><br><span class="line">xhr.onload = function () &#123;</span><br><span class="line">// 请求完成。在此进行处理。</span><br><span class="line">&#125;;</span><br><span class="line">xhr.ontimeout = function (e) &#123;</span><br><span class="line">// XMLHttpRequest 超时。在此做某事。</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send(null);</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequestEventTarget.ontimeout<br>当请求超时调用的 event handler</li>
+</ul>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li>XMLHttpRequest.abort()<br>如果请求已被发出，则立刻中止请求</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.getAllResponseHeaders()<br>返回包含指定响应头的字符串，如果响应尚未收到或响应中不存在该报头，则返回 null</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.open()<br>初始化一个请求。该方法只能在 JavaScript 代码中使用，若要在 native code 中初始化请求，请使用 openRequest()</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.overrideMimeType()<br>覆写由服务器返回的 MIME 类型</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.send()<br>发送请求。如果请求是异步的（默认），那么该方法将在请求发送后立即返回</li>
+</ul>
+<hr>
+<ul>
+<li>XMLHttpRequest.setRequestHeader()<br>设置 HTTP 请求头的值。必须在 open() 之后、send() 之前调用 setRequestHeader() 方法</li>
+</ul>
+<hr>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><p>abort       //onbort<br>error       //onerror<br>load        //onload<br>loadend     //onloaded<br>loadstart   //onloadstart<br>progress    //onprogress<br>timeout     //ontimeout</p>
+<p><code>addEventListener可用</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">addEventListener(&#x27;load&#x27;, function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="attention"><a href="#attention" class="headerlink" title="attention"></a>attention</h3><ul>
+<li>open &gt;&gt;&gt; true 异步 false 同步</li>
+</ul>
+<hr>
+<ul>
+<li>获得的json格式数据是字符串 <code>typeof(xhr.responseText)//string</code><br>用JSON.parse()将字符串变成对象，就可以调取其中的key和value了<br>JSON.toString()将对象变成字符串</li>
+</ul>
+<hr>
+<ul>
+<li>GET 和 POST<br>“GET请求没有body，只有url，请求数据放在url的querystring中；POST请求的数据在body中“。但这种情况仅限于浏览器发请求的场景。<a class="link"   href="https://www.zhihu.com/question/28586791" >知乎<i class="fas fa-external-link-alt"></i></a></li>
+<li>封装ajax <a href="">地址</a><h3 id="mock数据"><a href="#mock数据" class="headerlink" title="mock数据"></a>mock数据</h3></li>
+<li>简单的本地服务器 http-server 或线上文件(github)</li>
+</ul>
+<hr>
+<ul>
+<li>线上mock数据的网站<br><a class="link"   href="https://mock.mengxuegu.com/login" >easymock<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<hr>
+<p>相关文件代码<a href=""></a></p>
+]]></content>
+      <tags>
+        <tag>ajax</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>css-hover</title>
+    <url>/2021/11/04/css-hover/</url>
+    <content><![CDATA[<p>css 中的:hover对其他元素<strong>产生作用</strong>的可以使用的情况有以下几种<br>1.其他元素在child中 直接空格就可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.box:hover .child</span><br></pre></td></tr></table></figure>
+<p>2.其他元素在同级中 通过选择器~ or +有共同的父元素 (相邻兄弟选择器 (+) 通用兄弟选择器 (~) )</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.box1:hover ~ .box2</span><br><span class="line">.box1:hover + .box2</span><br></pre></td></tr></table></figure>
+<p>总结： 上述只是简单的css中的操作 以上都可以通过js 的calss操作解决</p>
+]]></content>
+      <tags>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DOM操作</title>
+    <url>/2021/11/19/dom/</url>
+    <content><![CDATA[<h2 id="dcoument"><a href="#dcoument" class="headerlink" title="dcoument"></a>dcoument</h2><p><strong>document.doctype</strong><br><strong>document.title</strong><br><strong>document.characterSet</strong><br><strong>document.head</strong><br><strong>document.body</strong><br><strong>document.images</strong></p>
+<p><strong>属性返回当前文档的状态</strong>：readyState：loading interactive complete<br>compatMode </p>
+<h3 id="document-location-关于url"><a href="#document-location-关于url" class="headerlink" title="document.location 关于url"></a>document.location <strong>关于url</strong></h3><p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637316438414.png" alt="实例"><br><code>document.location = url</code></p>
+<h3 id="document-open-write-close"><a href="#document-open-write-close" class="headerlink" title="document open()/write()/close()"></a>document open()/write()/close()</h3><h2 id="节点的获取"><a href="#节点的获取" class="headerlink" title="节点的获取"></a>节点的获取</h2><p><code>css3</code><br>    <strong>getElementById()</strong><br>    <strong>getElementByClass()</strong><br>    <strong>getElementByName()</strong><br>    <strong>getElementByTagName()</strong><br><code>用法</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementByClass(&#x27;box&#x27;)</span><br></pre></td></tr></table></figure>
+<p><code>css5</code><br>    <strong>querySelector()</strong><br>    <strong>querySelectorAll()</strong><br><code>tips</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var $ = function(selector)&#123;</span><br><span class="line">    return document.querySelector(selector)</span><br><span class="line">&#125;</span><br><span class="line">var $$ = function(selector)&#123;</span><br><span class="line">    return document.querySelectorAll(selector)</span><br><span class="line">&#125;</span><br><span class="line">$(&#x27;.box&#x27;)   $$(&#x27;.box&#x27;)</span><br></pre></td></tr></table></figure>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h3><p><strong>createElement()</strong><br>    <code>var newDiv = document.createElement(&quot;div&quot;);</code><br><strong>createTextNode()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var newDiv = document.createElement(&quot;div&quot;);</span><br><span class="line">var newContent = document.createTextNode(&quot;Hello&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>createDocumentFragment()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var docFragment = document.createDocumentFragment();</span><br></pre></td></tr></table></figure>
+<p><code>tips</code> fragment可以创建一个虚拟标签，dom操作减少</p>
+<h3 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h3><p><strong>appendChild</strong> 在元素末尾加元素</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var newDiv = document.createElement(&quot;div&quot;);</span><br><span class="line">var newContent = document.createTextNode(&quot;Hello&quot;);</span><br><span class="line">newDiv.appendChild(newContent);</span><br></pre></td></tr></table></figure>
+<p><strong>insertBefore()</strong></p>
+<figure class="highlight plaintext"><figcaption><span>newDiv </span></figcaption><table><tr><td class="code"><pre><span class="line">var newContent = document.createTextNode(&quot;Hello&quot;);</span><br><span class="line">newDiv.insertBefore(newContent, newDiv.firstChild);</span><br></pre></td></tr></table></figure>
+
+<p><strong>replaceChild()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">newDiv.replaceChild(newElement, oldElement);</span><br></pre></td></tr></table></figure>
+<p><strong>removeChild()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">parentNode.removeChild(childNode);</span><br></pre></td></tr></table></figure>
+<p><strong>cloneNode()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.cloneNode(true);(深克隆)</span><br></pre></td></tr></table></figure>
+<h3 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h3><p><strong>getAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.getAttribute(&#x27;id&#x27;);</span><br></pre></td></tr></table></figure>
+<p><strong>createAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">attribute = document.createAttribute(name);</span><br></pre></td></tr></table></figure>
+<p><strong>setAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var node = document.getElementById(&quot;div1&quot;);</span><br><span class="line">node.setAttribute(&quot;my_attrib&quot;, &quot;newVal&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>romoveAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.removeAttribute(&#x27;id&#x27;);</span><br></pre></td></tr></table></figure>
+<h3 id="innerText和innerHTML"><a href="#innerText和innerHTML" class="headerlink" title="innerText和innerHTML"></a>innerText和innerHTML</h3><p><strong>innerText</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.innerText//&quot;hello world&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>innerHTML</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.innerHTML//&quot;hello&lt;p&gt;world&lt;/p&gt; </span><br><span class="line">&quot;</span><br><span class="line">node.innerHTML = &#x27;&lt;a&gt;&#x27;+90+&#x27;&lt;/a&gt;&#x27;//拼装json的数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改style</strong><br>//麻烦不用,使用class操作</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var node = document.querySelector(&#x27;p&#x27;)</span><br><span class="line">var color = window.getComputedStyle(node).color</span><br><span class="line">console.log(color)</span><br></pre></td></tr></table></figure>
+<h3 id="class操作"><a href="#class操作" class="headerlink" title="class操作"></a>class操作</h3><p><strong>add</strong><br><strong>remove</strong><br><strong>toggle</strong><br><strong>contains</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var nodeBox = document.querySelector(&#x27;.box&#x27;)</span><br><span class="line">console.log( nodeBox.classList )</span><br><span class="line">nodeBox.classList.add(&#x27;active&#x27;)   //新增 class</span><br><span class="line">nodeBox.classList.remove(&#x27;active&#x27;)  //删除 class</span><br><span class="line">nodeBox.classList.toggle(&#x27;active&#x27;)   //新增/删除切换</span><br><span class="line">node.classList.contains(&#x27;active&#x27;)   // 判断是否拥有 class</span><br></pre></td></tr></table></figure>
+
+<h3 id="页面的高度"><a href="#页面的高度" class="headerlink" title="页面的高度"></a>页面的高度</h3><p><strong>clientHeight</strong> //content+padding<br><strong>offsetHeight</strong>//content + padding +border<br><strong>scrollHeight</strong>// 滚动距离<br><strong>scrollTop</strong>//当前目标距离顶部的距离<br><strong>window.innerHeight</strong>//不变（相对）<br><strong>element.getBoundingClientRect()</strong>//</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.getBoundingClientRect()</span><br><span class="line">//DOMRect&#123;x: 8, y: 8, width: 856, height: 57.60000228881836, top: 8, …&#125;</span><br></pre></td></tr></table></figure>
+<p><code>tips</code><br>scrollTop + clientHeight = scrollHeight//是否到达底部的判断<br>对象是否在页面中判断//<strong>懒加载</strong></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><strong>HTMLCllection和NodeList(forEach)</strong></p>
+]]></content>
+      <tags>
+        <tag>Dom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dom操作</title>
+    <url>/2021/12/09/dom%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="dcoument"><a href="#dcoument" class="headerlink" title="dcoument"></a>dcoument</h1><p><strong>document.doctype</strong><br><strong>document.title</strong><br><strong>document.characterSet</strong><br><strong>document.head</strong><br><strong>document.body</strong><br><strong>document.images</strong></p>
+<p><strong>属性返回当前文档的状态</strong>：readyState：loading interactive complete<br>compatMode </p>
+<h2 id="document-location-关于url"><a href="#document-location-关于url" class="headerlink" title="document.location 关于url"></a>document.location <strong>关于url</strong></h2><p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637316438414.png" alt="实例"><br><code>document.location = url</code></p>
+<h2 id="document-open-write-close"><a href="#document-open-write-close" class="headerlink" title="document open()/write()/close()"></a>document open()/write()/close()</h2><h1 id="节点的获取"><a href="#节点的获取" class="headerlink" title="节点的获取"></a>节点的获取</h1><p><code>css3</code><br>    <strong>getElementById()</strong><br>    <strong>getElementByClass()</strong><br>    <strong>getElementByName()</strong><br>    <strong>getElementByTagName()</strong><br><code>用法</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementByClass(&#x27;box&#x27;)</span><br></pre></td></tr></table></figure>
+<p><code>css5</code><br>    <strong>querySelector()</strong><br>    <strong>querySelectorAll()</strong><br><code>tips</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var $ = function(selector)&#123;</span><br><span class="line">    return document.querySelector(selector)</span><br><span class="line">&#125;</span><br><span class="line">var $$ = function(selector)&#123;</span><br><span class="line">    return document.querySelectorAll(selector)</span><br><span class="line">&#125;</span><br><span class="line">$(&#x27;.box&#x27;)   $$(&#x27;.box&#x27;)</span><br></pre></td></tr></table></figure>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h2><p><strong>createElement()</strong><br>    <code>var newDiv = document.createElement(&quot;div&quot;);</code><br><strong>createTextNode()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var newDiv = document.createElement(&quot;div&quot;);</span><br><span class="line">var newContent = document.createTextNode(&quot;Hello&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>createDocumentFragment()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var docFragment = document.createDocumentFragment();</span><br></pre></td></tr></table></figure>
+<p><code>tips</code> fragment可以创建一个虚拟标签，dom操作减少</p>
+<h2 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h2><p><strong>appendChild</strong> 在元素末尾加元素</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var newDiv = document.createElement(&quot;div&quot;);</span><br><span class="line">var newContent = document.createTextNode(&quot;Hello&quot;);</span><br><span class="line">newDiv.appendChild(newContent);</span><br></pre></td></tr></table></figure>
+<p><strong>insertBefore()</strong></p>
+<figure class="highlight plaintext"><figcaption><span>newDiv </span></figcaption><table><tr><td class="code"><pre><span class="line">var newContent = document.createTextNode(&quot;Hello&quot;);</span><br><span class="line">newDiv.insertBefore(newContent, newDiv.firstChild);</span><br></pre></td></tr></table></figure>
+
+<p><strong>replaceChild()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">newDiv.replaceChild(newElement, oldElement);</span><br></pre></td></tr></table></figure>
+<p><strong>removeChild()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">parentNode.removeChild(childNode);</span><br></pre></td></tr></table></figure>
+<p><strong>cloneNode()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.cloneNode(true);(深克隆)</span><br></pre></td></tr></table></figure>
+<h2 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h2><p><strong>getAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.getAttribute(&#x27;id&#x27;);</span><br></pre></td></tr></table></figure>
+<p><strong>createAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">attribute = document.createAttribute(name);</span><br></pre></td></tr></table></figure>
+<p><strong>setAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var node = document.getElementById(&quot;div1&quot;);</span><br><span class="line">node.setAttribute(&quot;my_attrib&quot;, &quot;newVal&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>romoveAttribute()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.removeAttribute(&#x27;id&#x27;);</span><br></pre></td></tr></table></figure>
+<h2 id="innerText和innerHTML"><a href="#innerText和innerHTML" class="headerlink" title="innerText和innerHTML"></a>innerText和innerHTML</h2><p><strong>innerText</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.innerText//&quot;hello world&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>innerHTML</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.innerHTML//&quot;hello&lt;p&gt;world&lt;/p&gt; </span><br><span class="line">&quot;</span><br><span class="line">node.innerHTML = &#x27;&lt;a&gt;&#x27;+90+&#x27;&lt;/a&gt;&#x27;//拼装json的数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改style</strong><br>//麻烦不用,使用class操作</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var node = document.querySelector(&#x27;p&#x27;)</span><br><span class="line">var color = window.getComputedStyle(node).color</span><br><span class="line">console.log(color)</span><br></pre></td></tr></table></figure>
+<h2 id="class操作"><a href="#class操作" class="headerlink" title="class操作"></a>class操作</h2><p><strong>add</strong><br><strong>remove</strong><br><strong>toggle</strong><br><strong>contains</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var nodeBox = document.querySelector(&#x27;.box&#x27;)</span><br><span class="line">console.log( nodeBox.classList )</span><br><span class="line">nodeBox.classList.add(&#x27;active&#x27;)   //新增 class</span><br><span class="line">nodeBox.classList.remove(&#x27;active&#x27;)  //删除 class</span><br><span class="line">nodeBox.classList.toggle(&#x27;active&#x27;)   //新增/删除切换</span><br><span class="line">node.classList.contains(&#x27;active&#x27;)   // 判断是否拥有 class</span><br></pre></td></tr></table></figure>
+
+<h2 id="页面的高度"><a href="#页面的高度" class="headerlink" title="页面的高度"></a>页面的高度</h2><p><strong>clientHeight</strong> //content+padding<br><strong>offsetHeight</strong>//content + padding +border<br><strong>scrollHeight</strong>// 滚动距离<br><strong>scrollTop</strong>//当前目标距离顶部的距离<br><strong>window.innerHeight</strong>//不变（相对）<br><strong>element.getBoundingClientRect()</strong>//</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node.getBoundingClientRect()</span><br><span class="line">//DOMRect&#123;x: 8, y: 8, width: 856, height: 57.60000228881836, top: 8, …&#125;</span><br></pre></td></tr></table></figure>
+<p><code>tips</code><br>scrollTop + clientHeight = scrollHeight//是否到达底部的判断<br>对象是否在页面中判断//<strong>懒加载</strong></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><strong>HTMLCllection和NodeList(forEach)</strong></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>hexo+github+blog的实现</title>
+    <url>/2021/11/01/hexo+blog%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="1-hexo官网"><a href="#1-hexo官网" class="headerlink" title="1. hexo官网"></a>1. hexo官网</h1><p> <a class="link"   href="https://hexo.io/zh-cn/" >官网<i class="fas fa-external-link-alt"></i></a></p>
+<p>可以直接根据官网教程</p>
+<h1 id="2-安装-hexo-cli"><a href="#2-安装-hexo-cli" class="headerlink" title="2. 安装 hexo-cli"></a>2. 安装 hexo-cli</h1><p><code>npm install hexo-cli -g</code></p>
+<p><em>需要node.js支持  v16.14.0</em> </p>
+<h1 id="3-配置github"><a href="#3-配置github" class="headerlink" title="3. 配置github"></a>3. 配置github</h1><p>github创建仓库 <code>stevechen1.github.io</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    <span class="attr">repo</span>: git@github.con:username/username.github.io.git</span><br><span class="line">    <span class="attr">branch</span>: master</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-主题配置"><a href="#4-主题配置" class="headerlink" title="4.主题配置"></a>4.主题配置</h1><p>我用的主题是fluid<br><a href="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>npm install --save hexo-theme-fluid</code></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>配置<br>在_config.yml文件中改<br><code>theme: fluid</code></p>
+<h1 id="5-hexo指令"><a href="#5-hexo指令" class="headerlink" title="5.hexo指令"></a>5.hexo指令</h1><p><code>hexo init</code> 初始化<br><code>hexo new &#39;title&#39;</code><br><code>hexo clean</code><br><code>hexo g</code><br><code>hexo d</code><br><code>hexo s</code></p>
+<h1 id="6-个人域名"><a href="#6-个人域名" class="headerlink" title="6.个人域名"></a>6.个人域名</h1><h3 id="企鹅云上购买域名"><a href="#企鹅云上购买域名" class="headerlink" title="企鹅云上购买域名"></a>企鹅云上购买域名</h3><h3 id="配置域名-进入dnspod"><a href="#配置域名-进入dnspod" class="headerlink" title="配置域名 进入dnspod"></a>配置域名 进入dnspod</h3><p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/dnspod.png" alt="配置"></p>
+<h3 id="在source文件家中新建CNAME文件"><a href="#在source文件家中新建CNAME文件" class="headerlink" title="在source文件家中新建CNAME文件"></a>在source文件家中新建CNAME文件</h3><h3 id="用vscode-打开-写入域名-例如我就写入12am-top-保存"><a href="#用vscode-打开-写入域名-例如我就写入12am-top-保存" class="headerlink" title="用vscode 打开 写入域名 例如我就写入12am.top 保存"></a>用vscode 打开 写入域名 例如我就写入<code>12am.top</code> 保存</h3><h3 id="执行hexo-d-提交到github"><a href="#执行hexo-d-提交到github" class="headerlink" title="执行hexo d 提交到github"></a>执行<code>hexo d</code> 提交到github</h3><h3 id="打开12am-top-完成"><a href="#打开12am-top-完成" class="headerlink" title="打开12am.top 完成"></a>打开12am.top 完成</h3>]]></content>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nodejs搭建静态服务器</title>
+    <url>/2021/11/25/nodejs/</url>
+    <content><![CDATA[<h2 id="本地搭建"><a href="#本地搭建" class="headerlink" title="本地搭建"></a>本地搭建</h2><p>http-sever (npm)</p>
+<hr>
+<h2 id="本地静态服务器"><a href="#本地静态服务器" class="headerlink" title="本地静态服务器"></a>本地静态服务器</h2><p>客户端发送url req</p>
+<ul>
+<li>req<br>服务器解析返回数据  res</li>
+<li>res 中解析url,来对应相应的文件</li>
+<li>nodejs 中有一个个模块 reauire()方法来调用模块 模块中也有对应的方法<br>比如<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">require(&#x27;http&#x27;) //建立服务器</span><br><span class="line">require(&#x27;path&#x27;) //不同系统之间文件的读取url不同 / \</span><br><span class="line">require(&#x27;fs&#x27;) // 读取文件</span><br><span class="line">require(&#x27;url&#x27;) //读取url</span><br></pre></td></tr></table></figure>
+<hr>
+ 浏览器到服务器的流程</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js命名规范</title>
+    <url>/2021/11/22/js%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/</url>
+    <content><![CDATA[<h1 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h1><h3 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h3><p><strong>大驼峰</strong> <code>StudentInfo</code><br><strong>小驼峰</strong> <code>studentInfo</code></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>前缀是名词 小驼峰<br><code>var maxCount = 10</code></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>前缀是动词 小驼峰<br><code>function canRead()&#123; return true &#125;</code><br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637511383743.png" alt="常见"><br>常见动词如上</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>名称全部大写 使用大写字母和下划线的组合来命名，下划线用以分割单词<br><code>var MAX_COUNT = 10;</code></p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>大驼峰命名方法 首字母大写<br><code>function Student(e)&#123; this.name = e&#125;</code></p>
+<h3 id="类的成员"><a href="#类的成员" class="headerlink" title="类的成员"></a>类的成员</h3><h4 id="公共属性-与变量相同"><a href="#公共属性-与变量相同" class="headerlink" title="公共属性 与变量相同"></a>公共属性 与变量相同</h4><h4 id="私有属性-前缀是下划线-后面和公共属性一样"><a href="#私有属性-前缀是下划线-后面和公共属性一样" class="headerlink" title="私有属性 前缀是下划线_ 后面和公共属性一样"></a>私有属性 前缀是下划线_ 后面和公共属性一样</h4><h2 id="注释的规范"><a href="#注释的规范" class="headerlink" title="注释的规范"></a>注释的规范</h2><h3 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var maxCount = 10;// 单行注释</span><br></pre></td></tr></table></figure>
+<h3 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/*多行注释</span><br><span class="line"></span><br><span class="line">多行注释*/</span><br></pre></td></tr></table></figure>
+<h3 id="函数（方法）的注释"><a href="#函数（方法）的注释" class="headerlink" title="函数（方法）的注释"></a>函数（方法）的注释</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line">* 函数说明 </span><br><span class="line">* @关键字 </span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637512059055.png"></p>
+<h1 id="框架开发"><a href="#框架开发" class="headerlink" title="框架开发"></a>框架开发</h1><h2 id="全局变量冲突"><a href="#全局变量冲突" class="headerlink" title="全局变量冲突"></a>全局变量冲突</h2><p>在团队开发或者引入第三方JS文件时，有时会造成全局对象的名称冲突，比如a.js有个全局函数sendMsg()，b.js也又有个全局函数sendMsg()，引入a.js和b.js文件时，会造成sendMsg()函数冲突<br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637512305486.png"></p>
+<h2 id="单全局变量"><a href="#单全局变量" class="headerlink" title="单全局变量"></a>单全局变量</h2><p>　所创建的全局对象名称是独一无二的，并将所有的功能代码添加到这个全局对象上。调用自己所写的代码时，以这个全局对象为入口点。<br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637512325272.png"><br>比如</p>
+<ul>
+<li>JQuery的全局对象：$和JQuery</li>
+<li>ExtJS的全局对象： Ext<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2>在项目规模日益壮大时，可采用命名空间方式对JS代码进行规范：即将代码按照功能进行分组，以组的形式附加到单全局对象上<br><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/uTools_1637512246597.png"><br>参考文章: <a class="link"   href="https://www.cnblogs.com/polk6/p/4660195.html#Menu3-FrameDev" >JavaScript命名规范<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://segmentfault.com/a/1190000020039039" >具体的使用情况<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>项目</title>
+    <url>/2021/12/18/project/</url>
+    <content><![CDATA[<h1 id="项目一-音乐播放器"><a href="#项目一-音乐播放器" class="headerlink" title="项目一 音乐播放器"></a>项目一 音乐播放器</h1><blockquote>
+<p>原生js编写</p>
+</blockquote>
+<p>github地址：<a class="link"   href="http://12am.top/coco-music/" >预览<i class="fas fa-external-link-alt"></i></a><br>gitee地址： </p>
+<h1 id="项目二-vue五子棋"><a href="#项目二-vue五子棋" class="headerlink" title="项目二 vue五子棋"></a>项目二 vue五子棋</h1><p>github地址：<a class="link"   href="http://12am.top/coco-music/" >预览<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <tags>
+        <tag>项目</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>promise</title>
+    <url>/2021/12/23/promise/</url>
+    <content><![CDATA[<h1 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h1><h2 id="一、promise的使用"><a href="#一、promise的使用" class="headerlink" title="一、promise的使用"></a>一、promise的使用</h2><h3 id="1-fs模块"><a href="#1-fs模块" class="headerlink" title="1.fs模块"></a>1.fs模块</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    fs.readFile(PATH,<span class="function">(<span class="params">error,data</span>)=&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(err) reject() <span class="comment">// 返回失败的promise状态</span></span><br><span class="line">        resolve() <span class="comment">// 返回成功的promise状态</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">promise.then(<span class="function"><span class="params">val</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(val)  </span><br><span class="line">    <span class="comment">//then方法返回promise对象，其中的回调函数返回的是then方法的状态</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="2-AJAX请求"><a href="#2-AJAX请求" class="headerlink" title="2.AJAX请求"></a>2.AJAX请求</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">btn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#btn&#x27;</span>)</span><br><span class="line">btn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">           xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;https://api.apiopen.top/getJoke&#x27;</span>)</span><br><span class="line">           xhr.send()</span><br><span class="line">           xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">               <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">                   <span class="comment">//判断响应状态码 2xx   </span></span><br><span class="line">                   <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">                       <span class="comment">//控制台输出响应体</span></span><br><span class="line">                       resolve(xhr.response);</span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                       <span class="comment">//控制台输出响应状态码</span></span><br><span class="line">                       reject(xhr.status);</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;)</span><br><span class="line">       <span class="comment">//调用then</span></span><br><span class="line">       p.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="built_in">console</span>.log(value);</span><br><span class="line">       &#125;, <span class="function">(<span class="params">reason</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="built_in">console</span>.log(<span class="string">&#x27;err&#x27;</span>, reason)</span><br><span class="line">       &#125;)</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="3-封装fs函数"><a href="#3-封装fs函数" class="headerlink" title="3.封装fs函数"></a>3.封装fs函数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mineReadFile</span>(<span class="params">path</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//读取文件</span></span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>).readFile(path, <span class="function">(<span class="params">err, data</span>) =&gt;</span>&#123;</span><br><span class="line">            <span class="comment">//判断</span></span><br><span class="line">            <span class="keyword">if</span>(err) reject(err);</span><br><span class="line">            <span class="comment">//成功</span></span><br><span class="line">            resolve(data);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mineReadFile(<span class="string">&#x27;./resource/content.txt&#x27;</span>)</span><br><span class="line">.then(<span class="function"><span class="params">value</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//输出文件内容</span></span><br><span class="line">    <span class="built_in">console</span>.log(value.toString());</span><br><span class="line">&#125;, <span class="function"><span class="params">reason</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(reason);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="4-封装AJAX请求"><a href="#4-封装AJAX请求" class="headerlink" title="4.封装AJAX请求"></a>4.封装AJAX请求</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendAJAX</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">        xhr.responseType = <span class="string">&#x27;json&#x27;</span>;</span><br><span class="line">        xhr.open(<span class="string">&quot;GET&quot;</span>, url);</span><br><span class="line">        xhr.send();</span><br><span class="line">        <span class="comment">//处理结果</span></span><br><span class="line">        xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span><br><span class="line">                <span class="comment">//判断成功</span></span><br><span class="line">                <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">                    <span class="comment">//成功的结果</span></span><br><span class="line">                    resolve(xhr.response);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    reject(xhr.status);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">sendAJAX(<span class="string">&#x27;https://api.apiopen.top/getJok&#x27;</span>)</span><br><span class="line">.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;, <span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(reason);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="5-util-promiseify方法的使用"><a href="#5-util-promiseify方法的使用" class="headerlink" title="5.util.promiseify方法的使用"></a>5.util.promiseify方法的使用</h3><p>简化使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引入 util 模块</span></span><br><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">&#x27;util&#x27;</span>);</span><br><span class="line"><span class="comment">//引入 fs 模块</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="comment">//返回一个新的函数</span></span><br><span class="line"><span class="keyword">let</span> mineReadFile = util.promisify(fs.readFile);</span><br><span class="line"></span><br><span class="line">mineReadFile(<span class="string">&#x27;./resource/content.txt&#x27;</span>).then(<span class="function"><span class="params">value</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value.toString());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="二、Promise-API"><a href="#二、Promise-API" class="headerlink" title="二、Promise API"></a>二、Promise API</h2><h3 id="1-then-返回promise对象"><a href="#1-then-返回promise对象" class="headerlink" title="1.then: 返回promise对象"></a>1.then: 返回promise对象</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">promise.then(<span class="function"><span class="params">val</span>=&gt;</span>&#123;&#125;,<span class="function"><span class="params">reason</span>=&gt;</span>&#123;&#125;) <span class="comment">//成功和失败</span></span><br></pre></td></tr></table></figure>
+<p>###catch: 接受失败的结果</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">promise.then(<span class="function"><span class="params">val</span>=&gt;</span>&#123;&#125;,<span class="function"><span class="params">reason</span>=&gt;</span>&#123;&#125;).catch(<span class="function"><span class="params">reson</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(reson)&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="2-resolve方法："><a href="#2-resolve方法：" class="headerlink" title="2.resolve方法："></a>2.resolve方法：</h3><blockquote>
+<p> i.如果传入的是非promise对象，返回的结果为成功的promise对象<br>   ii.如果传入的是promise对象，则参数的结果决定了resolve的promise对象的状态</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="built_in">Promise</span>.resolve(<span class="number">521</span>);</span><br><span class="line">        <span class="keyword">let</span> p2 = <span class="built_in">Promise</span>.resolve(<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// resolve(&#x27;OK&#x27;);</span></span><br><span class="line">            reject(<span class="string">&#x27;Error&#x27;</span>);</span><br><span class="line">        &#125;));</span><br><span class="line">        <span class="comment">// console.log(p2);</span></span><br><span class="line">        p2.catch(<span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(reason);</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="3-reject方法"><a href="#3-reject方法" class="headerlink" title="3.reject方法"></a>3.reject方法</h3><blockquote>
+<p>传入的参数都会返回失败</p>
+</blockquote>
+<h3 id="4-all方法"><a href="#4-all方法" class="headerlink" title="4.all方法"></a>4.all方法</h3><blockquote>
+<p>传入多个promise对象数组，如果都为成功，则返回成功，PromiseResult的值是数组</p>
+</blockquote>
+<h3 id="5-race方法"><a href="#5-race方法" class="headerlink" title="5.race方法"></a>5.race方法</h3><blockquote>
+<p>传入多个promise对象数组，最先执行的promise返回值，如果数组里面的promise对象最先执行的是失败的，依然返回最先成功的对象的值，返回的状态为成功</p>
+</blockquote>
+<h3 id="6-finally方法"><a href="#6-finally方法" class="headerlink" title="6.finally方法"></a>6.finally方法</h3><p>不管promise对象最后状态如何，都会执行操作(<strong>finally本质上是then方法的特例</strong>)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">promise</span><br><span class="line">.then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.finally(<span class="function">() =&gt;</span> &#123;···&#125;);</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<p>上面代码中，不管promise最后的状态，在执行完then或catch指定的回调函数以后，都会执行finally方法指定的回调函数。</p>
+<h3 id="7-allSettled"><a href="#7-allSettled" class="headerlink" title="7.allSettled"></a>7.allSettled</h3><p>Promise.allSettled()方法接受一个数组作为参数，数组的每个成员都是一个 Promise 对象，并返回一个新的 Promise 对象。只有等到参数数组的所有 Promise 对象都发生状态变更（不管是fulfilled还是rejected），返回的 Promise 对象才会发生状态变更。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> promises = [</span><br><span class="line">  fetch(<span class="string">&#x27;/api-1&#x27;</span>),</span><br><span class="line">  fetch(<span class="string">&#x27;/api-2&#x27;</span>),</span><br><span class="line">  fetch(<span class="string">&#x27;/api-3&#x27;</span>),</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> <span class="built_in">Promise</span>.allSettled(promises);</span><br><span class="line">removeLoadingIndicator();</span><br></pre></td></tr></table></figure>
+<p>面示例中，数组promises包含了三个请求，只有等到这三个请求都结束了（不管请求成功还是失败），removeLoadingIndicator()才会执行<br>该方法返回的新的 Promise 实例，一旦发生状态变更，状态总是fulfilled，不会变成rejected。状态变成fulfilled后，它的回调函数会接收到一个数组作为参数，该数组的每个成员对应前面数组的每个 Promise 对象。</p>
+<h3 id="8-any方法"><a href="#8-any方法" class="headerlink" title="8.any方法"></a>8.any方法</h3><p>该方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.any([</span><br><span class="line">  fetch(<span class="string">&#x27;https://v8.dev/&#x27;</span>).then(<span class="function">() =&gt;</span> <span class="string">&#x27;home&#x27;</span>),</span><br><span class="line">  fetch(<span class="string">&#x27;https://v8.dev/blog&#x27;</span>).then(<span class="function">() =&gt;</span> <span class="string">&#x27;blog&#x27;</span>),</span><br><span class="line">  fetch(<span class="string">&#x27;https://v8.dev/docs&#x27;</span>).then(<span class="function">() =&gt;</span> <span class="string">&#x27;docs&#x27;</span>)</span><br><span class="line">]).then(<span class="function">(<span class="params">first</span>) =&gt;</span> &#123;  <span class="comment">// 只要有一个 fetch() 请求成功</span></span><br><span class="line">  <span class="built_in">console</span>.log(first);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123; <span class="comment">// 所有三个 fetch() 全部请求失败</span></span><br><span class="line">  <span class="built_in">console</span>.log(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>只要参数实例有一个变成fulfilled状态，包装实例就会变成fulfilled状态；如果所有参数实例都变成rejected状态，包装实例就会变成rejected状态。</p>
+<h2 id="三、关键点"><a href="#三、关键点" class="headerlink" title="三、关键点"></a>三、关键点</h2><h3 id="1-如何修改promise的状态"><a href="#1-如何修改promise的状态" class="headerlink" title="1.如何修改promise的状态"></a>1.如何修改promise的状态</h3><h4 id="i-resolve-函数"><a href="#i-resolve-函数" class="headerlink" title="i.resolve 函数"></a>i.resolve 函数</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">js resolve(<span class="string">&#x27;ok&#x27;</span>); <span class="comment">// pending   =&gt; fulfilled (resolved)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ii-reject-函数"><a href="#ii-reject-函数" class="headerlink" title="ii.reject 函数"></a>ii.reject 函数</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">reject(<span class="string">&quot;error&quot;</span>);<span class="comment">// pending  =&gt;  rejected </span></span><br></pre></td></tr></table></figure>
+<h4 id="iii-抛出错误"><a href="#iii-抛出错误" class="headerlink" title="iii.抛出错误"></a>iii.抛出错误</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="string">&#x27;出问题了&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="2-执行多个回调"><a href="#2-执行多个回调" class="headerlink" title="2.执行多个回调"></a>2.执行多个回调</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// resolve(&#x27;OK&#x27;);</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">///指定回调 - 1</span></span><br><span class="line">p.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//指定回调 - 2</span></span><br><span class="line">p.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    alert(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="3-改变状态与指定回调的顺序问题"><a href="#3-改变状态与指定回调的顺序问题" class="headerlink" title="3.改变状态与指定回调的顺序问题"></a>3.改变状态与指定回调的顺序问题</h3><h4 id="两种情况"><a href="#两种情况" class="headerlink" title="两种情况"></a>两种情况</h4><pre><code>i. 在执行器种直接调用resolve/reject
+直接调用，是同步的，先改变状态，在指定回调函数
+ii.异步调用（使用情况较多）
+异步的情况下，先指定回调函数，在改变状态，在状态改变完成后，调用相应的回调函数，实际开发中，这种情况使用较多
+</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        resolve(<span class="string">&#x27;OK&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//p先指定回调函数，在执行resolve,改变到状态为fulfilled时，调用then方法里面的回调函数</span></span><br><span class="line">p.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;,<span class="function"><span class="params">reason</span>=&gt;</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="4-then方法回调函数返回的结果"><a href="#4-then方法回调函数返回的结果" class="headerlink" title="4.then方法回调函数返回的结果"></a>4.then方法回调函数返回的结果</h3><pre><code>i.throw 
+返回失败的promise对象
+ii.非promise对象
+返回成功的promise对象，可以继续往下执行
+iii.promise对象
+根据实际返回的是resolve还是reject来判断
+</code></pre>
+<h4 id="5-串联多个then"><a href="#5-串联多个then" class="headerlink" title="5.串联多个then"></a>5.串联多个then</h4><p>由于then返回的是promise对象，所以可以继续使用then方法，根据上一次then方法的回调函数返回的值，来确定此次的then是什么状态，进而执行相应的resolve or reject(此处具体执行的是then函数的里面的两个参数函数，第一个是成功的时候执行，第二个失败的时候执行)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        resolve(<span class="string">&#x27;OK&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        resolve(<span class="string">&quot;success&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-异常穿透"><a href="#6-异常穿透" class="headerlink" title="6.异常穿透"></a>6.异常穿透</h4><p>指的是catch方法的使用<br>catch是在抛出错误时，可以接受错误的信息，进而执行相应的回调函数<br>catch并不需要紧跟在then后面，只要发生错误，抛出错误或者执行rejec回调函数，catch就会执行，调用回调函数</p>
+<h4 id="7-终端promise链"><a href="#7-终端promise链" class="headerlink" title="7.终端promise链"></a>7.终端promise链</h4><p>关键点： 提供一个新的promise对象，状态是pending<br><em>只有这一个</em></p>
+<h2 id="四、async-和-await"><a href="#四、async-和-await" class="headerlink" title="四、async 和 await"></a>四、async 和 await</h2><h3 id="async-函数"><a href="#async-函数" class="headerlink" title="async 函数"></a>async 函数</h3><p>返回的是一个promise对象 p</p>
+<h4 id="1-返回的是非Promise对象"><a href="#1-返回的是非Promise对象" class="headerlink" title="1.返回的是非Promise对象"></a>1.返回的是非Promise对象</h4><p>p的返回的状态为<strong>成功</strong> ，非Promise对象的值是p的值<br><code>return 123 // 123</code></p>
+<h4 id="2-返回的是Promise对象p1"><a href="#2-返回的是Promise对象p1" class="headerlink" title="2.返回的是Promise对象p1"></a>2.返回的是Promise对象p1</h4><p>根据这个p1的返回值来决定</p>
+<blockquote>
+<p>如果是p1的返回值resolve(val)=&gt; 返回状态为成功，返回值是val<br>如果是p1的返回值reject(err)=&gt; 返回状态为成功，返回值是err</p>
+</blockquote>
+<h4 id="3-throw"><a href="#3-throw" class="headerlink" title="3.throw"></a>3.throw</h4><p>p的返回状态是rejeced,值是throw的值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="string">&#x27;wrong&#x27;</span> <span class="comment">// wrong</span></span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// return &#x27;hello world&#x27;  // hello world</span></span><br><span class="line">    <span class="comment">// return new Promise((resolve,reject)=&gt;&#123;</span></span><br><span class="line">    <span class="comment">//     // resolve(&#x27;hello&#x27;)</span></span><br><span class="line">    <span class="comment">//     reject(&#x27;hehehe&#x27;)</span></span><br><span class="line">    <span class="comment">// &#125;)</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="string">&#x27;console.error();&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> result = main()</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+
+<h3 id="await表达式"><a href="#await表达式" class="headerlink" title="await表达式"></a>await表达式</h3><p>必须使用在async函数中</p>
+<h4 id="1-右侧为Promise对象"><a href="#1-右侧为Promise对象" class="headerlink" title="1.右侧为Promise对象"></a>1.右侧为Promise对象</h4><p><code>let res = await p</code></p>
+<h5 id="i-返回成功（一般）"><a href="#i-返回成功（一般）" class="headerlink" title="i.返回成功（一般）"></a>i.返回成功（一般）</h5><p>返回成功的值</p>
+<h5 id="ii-返回失败"><a href="#ii-返回失败" class="headerlink" title="ii.返回失败"></a>ii.返回失败</h5><p>用try…catch类捕获失败的值</p>
+<h4 id="2-右侧为非Promise对象（较少）"><a href="#2-右侧为非Promise对象（较少）" class="headerlink" title="2.右侧为非Promise对象（较少）"></a>2.右侧为非Promise对象（较少）</h4><p>直接将此值作为await的返回</p>
+<p>await必须写在async函数中，async函数可以没有await<br>await的promise失败了，需要try…catch处理</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// resolve(&#x27;ok&#x27;)</span></span><br><span class="line">        reject(<span class="string">&#x27;error aaa&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> res3 = <span class="keyword">await</span> p;  <span class="comment">//返回成功的值ok</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(e); <span class="comment">//返回失败的值error aaa</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、async-await例子"><a href="#五、async-await例子" class="headerlink" title="五、async+await例子"></a>五、async+await例子</h2><h3 id="fs-（node环境下）读取文件合并"><a href="#fs-（node环境下）读取文件合并" class="headerlink" title="fs （node环境下）读取文件合并"></a>fs （node环境下）读取文件合并</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">&#x27;util&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> mineReadFile = util.promisify(fs.readFile)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数做法</span></span><br><span class="line"><span class="comment">/* fs.readFile(&#x27;./1.html&#x27;,(err,data1)=&gt;&#123;</span></span><br><span class="line"><span class="comment">    if(err) throw err;</span></span><br><span class="line"><span class="comment">    fs.readFile(&#x27;./2.html&#x27;,(err,data2)=&gt;&#123;</span></span><br><span class="line"><span class="comment">        if(err) throw err</span></span><br><span class="line"><span class="comment">        fs.readFile(&#x27;./3.html&#x27;,(err,data3)=&gt;&#123;</span></span><br><span class="line"><span class="comment">            if(err) throw err;</span></span><br><span class="line"><span class="comment">            console.log(data1 + data2 + data3);</span></span><br><span class="line"><span class="comment">        &#125;)</span></span><br><span class="line"><span class="comment">    &#125;)</span></span><br><span class="line"><span class="comment">&#125;) */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//async + await</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//读取第一个文件的内容</span></span><br><span class="line">    <span class="keyword">let</span> data1 = <span class="keyword">await</span> mineReadFile(<span class="string">&#x27;./1.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> data2 = <span class="keyword">await</span> mineReadFile(<span class="string">&#x27;./2.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> data3 = <span class="keyword">await</span> mineReadFile(<span class="string">&#x27;./3.html&#x27;</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(data1 + data2 + data3);     </span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e.code);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<h3 id="发送AJAX请求"><a href="#发送AJAX请求" class="headerlink" title="发送AJAX请求"></a>发送AJAX请求</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span>点击获取<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> btn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#btn&#x27;</span>)</span><br><span class="line"><span class="comment">//将AJAX请求封装为sendAJAX()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendAJAX</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">        <span class="comment">// xhr.responseType = &#x27;json&#x27;</span></span><br><span class="line">        xhr.open(<span class="string">&#x27;GET&#x27;</span>, url)</span><br><span class="line">        xhr.send()</span><br><span class="line">        xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">                    resolve(xhr.response)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    reject(xhr.status)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//接口： https://api.apiopen.top/getJoke</span></span><br><span class="line"></span><br><span class="line">btn.addEventListener(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">async</span> ()=&gt;&#123;</span><br><span class="line">    <span class="comment">//获取信息</span></span><br><span class="line">    <span class="keyword">let</span> msgData = <span class="keyword">await</span> sendAJAX(<span class="string">&#x27;https://api.apiopen.top/getJoke&#x27;</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(msgData));</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>大致使用格式 </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        resolve(<span class="string">&#x27;OK&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">111</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">222</span>);</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(reason);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>或者使用封装后的自定义函数</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>this</title>
+    <url>/2021/11/04/this/</url>
+    <content><![CDATA[<p>参考文章 <a class="link"   href="https://zhuanlan.zhihu.com/p/23804247" >知乎<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="this的定义"><a href="#this的定义" class="headerlink" title="this的定义"></a>this的定义</h2><p>this的指向是不确定的，this就是属性或方法“当前”所在的对象（运行环境，找到此时this所在的环境，this代表的就是上层对象）<br>多层this</p>
+<blockquote>
+<p>var o = {<br>  f1: function () {<br>    console.log(this);<br>    var f2 = function () {<br>      console.log(this);<br>    }();<br>  }<br>}<br>o.f1()<br>// Object<br>// Window<br><strong>第一个指代的是o ,第二个指代的是window(非严格模式)</strong></p>
+</blockquote>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="绑定-this"><a href="#绑定-this" class="headerlink" title="绑定_this"></a>绑定_this</h3><p><code>var _this = this</code><br>将对象绑定在_this里面</p>
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>严格模式下，指向顶层会报错</p>
+]]></content>
+      <tags>
+        <tag>this</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一次性搞清楚居中</title>
+    <url>/2021/12/09/%E4%B8%80%E6%AC%A1%E6%80%A7%E6%90%9E%E6%B8%85%E6%A5%9A%E5%B1%85%E4%B8%AD/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  居中一直是一个让人头疼的问题，可以直接使用flex或者grid来直接做成效果，也可以通过一些技巧来实现同样的效果，比如一个内联元素居中可以使用flex的<code>justify-content:center;</code> 和 <code>align-items: center;</code>来实现，也可以通过<code>text-align: center</code>和<code>line-height</code>来实现。需要记住，这篇文章的并不是来比较各个方法之间的优劣，只是对我所学的居中方法的梳理。<br>Go!</p>
+<h1 id="一、水平居中"><a href="#一、水平居中" class="headerlink" title="一、水平居中"></a>一、水平居中</h1><h2 id="1-内联元素"><a href="#1-内联元素" class="headerlink" title="1.内联元素"></a>1.内联元素</h2><p><code>text-align: center</code></p>
+<h2 id="2-inline-block"><a href="#2-inline-block" class="headerlink" title="2.inline-block"></a>2.inline-block</h2><p>父元素为块级元素使用<code>text-align: center</code> 水平居中</p>
+<h2 id="3-块级元素水平居中"><a href="#3-块级元素水平居中" class="headerlink" title="3.块级元素水平居中"></a>3.块级元素水平居中</h2><h3 id="1-单个元素"><a href="#1-单个元素" class="headerlink" title="(1) 单个元素"></a>(1) 单个元素</h3><p>使用<code>margin:0 auto;</code><br><br></p>
+<h3 id="2-父元素为块级元素"><a href="#2-父元素为块级元素" class="headerlink" title="(2) 父元素为块级元素"></a>(2) 父元素为块级元素</h3><h4 id="1-使用table布局左右自适应"><a href="#1-使用table布局左右自适应" class="headerlink" title="1)使用table布局左右自适应"></a>1)使用table布局左右自适应</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.inner</span> &#123;</span><br><span class="line">   <span class="attribute">display</span>: table;</span><br><span class="line">   <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-多个元素在一行居中"><a href="#2-多个元素在一行居中" class="headerlink" title="2)多个元素在一行居中"></a>2)多个元素在一行居中</h4><h5 id="i-将块级元素变成inline-block"><a href="#i-将块级元素变成inline-block" class="headerlink" title="i.将块级元素变成inline-block"></a>i.将块级元素变成inline-block</h5><p>子元素上设置<code>display: inline-block</code> 父元素上使用<code>text-align:center</code> 就可以水平居中（注意inline-block之间有间隙，需要在父元素上加font-size:0,重新在子元素上设置font-size）</p>
+<h5 id="ii-使用flex布局"><a href="#ii-使用flex布局" class="headerlink" title="ii.使用flex布局"></a>ii.使用flex布局</h5><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">display</span>: flex;</span><br><span class="line"><span class="attribute">justify-content</span>: center;</span><br></pre></td></tr></table></figure>
+<h4 id="3-多个元素在一列中居中"><a href="#3-多个元素在一列中居中" class="headerlink" title="3)多个元素在一列中居中"></a>3)多个元素在一列中居中</h4><p>直接父元素<code>text-align: center</code>,子元素<code>margin: auto;</code></p>
+<h3 id="3-使用定位水平居中"><a href="#3-使用定位水平居中" class="headerlink" title="(3)使用定位水平居中"></a>(3)使用定位水平居中</h3><p>父元素相对定位，子元素绝对定位<br>子元素</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">position</span>: absolute;</span><br><span class="line"><span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line"><span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="4、浮动元素水平居中"><a href="#4、浮动元素水平居中" class="headerlink" title="4、浮动元素水平居中"></a>4、浮动元素水平居中</h2><p>清除浮动</p>
+<h3 id="1-浮动元素定宽-：-位相-负宽一半margin"><a href="#1-浮动元素定宽-：-位相-负宽一半margin" class="headerlink" title="(1)浮动元素定宽  ： 位相 + 负宽一半margin"></a>(1)浮动元素定宽  ： 位相 + 负宽一半margin</h3><p>使用相对定位<code>position: 50% </code> + <code>margin-left: -自身宽度的一半</code></p>
+<h3 id="2-浮动元素不指定宽度：-父子位相左浮，左右各50"><a href="#2-浮动元素不指定宽度：-父子位相左浮，左右各50" class="headerlink" title="(2) 浮动元素不指定宽度： 父子位相左浮，左右各50%"></a>(2) 浮动元素不指定宽度： 父子位相左浮，左右各50%</h3><p>父元素左浮动 + <code>position: relative;</code> +<code>left: 50%;</code> 父元素左边水平居中<br>子元素左浮动 +<code>position: relative</code> + <code>right: 50%;</code>  子元素在父元素左边的位置上，左移自身宽度的50%，水平居中</p>
+<h3 id="3-flex布局"><a href="#3-flex布局" class="headerlink" title="(3) flex布局"></a>(3) flex布局</h3><p><code>display: flex ;</code><br><code>justify-content: center;</code><br><em>使用</em></p>
+<h1 id="二、垂直居中"><a href="#二、垂直居中" class="headerlink" title="二、垂直居中"></a>二、垂直居中</h1><h2 id="1-内联元素垂直居中"><a href="#1-内联元素垂直居中" class="headerlink" title="1.内联元素垂直居中"></a>1.内联元素垂直居中</h2><h3 id="1-单行内联元素"><a href="#1-单行内联元素" class="headerlink" title="(1)  单行内联元素"></a>(1)  单行内联元素</h3><h4 id="1-使用填充"><a href="#1-使用填充" class="headerlink" title="1) 使用填充"></a>1) 使用填充</h4><p>上下padding相等</p>
+<h4 id="2）-使用行高"><a href="#2）-使用行高" class="headerlink" title="2） 使用行高"></a>2） 使用行高</h4><p><code>line-height: val</code><br>val使用的是父元素的高度</p>
+<h3 id="2-多行内联元素"><a href="#2-多行内联元素" class="headerlink" title="(2) 多行内联元素"></a>(2) 多行内联元素</h3><h4 id="1）使用display-table"><a href="#1）使用display-table" class="headerlink" title="1）使用display:table"></a>1）使用<code>display:table</code></h4><p>父元素 <code>display: table;</code><br>子元素 <code>display: table-cell;  vertiacal-align: middle;</code></p>
+<h4 id="2-使用flex"><a href="#2-使用flex" class="headerlink" title="2) 使用flex"></a>2) 使用flex</h4><p>父元素有宽度是才可以使用<br><code>display: flex;</code><br><code>flex-direction: column;</code><br><code>justify-content: center;</code></p>
+<h4 id="3-使用伪元素"><a href="#3-使用伪元素" class="headerlink" title="3) 使用伪元素"></a>3) 使用伪元素</h4><p>父元素有高度<br>父元素使用<code>::before</code> 或<code> ::after</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">display</span>: inline-block;</span><br><span class="line"><span class="attribute">vertical-align</span>: middle;</span><br><span class="line"><span class="attribute">height</span>:<span class="number">100%</span>;    `伪元素需要高度撑开`</span><br></pre></td></tr></table></figure>
+<p>子元素<br><code>vertical-align: middle;</code></p>
+<h2 id="2、块级元素垂直居中"><a href="#2、块级元素垂直居中" class="headerlink" title="2、块级元素垂直居中"></a>2、块级元素垂直居中</h2><h3 id="1-定高：-父相对子绝对-上50-负上高度一般margin"><a href="#1-定高：-父相对子绝对-上50-负上高度一般margin" class="headerlink" title="(1) 定高： 父相对子绝对 + 上50% + 负上高度一般margin"></a>(1) 定高： 父相对子绝对 + 上50% + 负上高度一般margin</h3><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute;</code><br><code>top: calc(50% - 自身高度)</code><br><code>line-height: 自身高度</code>   （文本垂直居中）</p>
+<h3 id="2-未知高度"><a href="#2-未知高度" class="headerlink" title="(2) 未知高度"></a>(2) 未知高度</h3><h4 id="1-父相对子绝对-上50-上偏移50"><a href="#1-父相对子绝对-上50-上偏移50" class="headerlink" title="1) 父相对子绝对 + 上50%  + 上偏移50%"></a>1) 父相对子绝对 + 上50%  + 上偏移50%</h4><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute;</code><br><code> top: 50%;</code><br><code>transform: translateY(-50%)</code></p>
+<h4 id="2-父table布局-子table-cell-vertical-align-middle"><a href="#2-父table布局-子table-cell-vertical-align-middle" class="headerlink" title="2) 父table布局 + 子table-cell + vertical-align: middle"></a>2) 父table布局 + 子table-cell + vertical-align: middle</h4><p>父元素 <code>display: table</code></p>
+<p>子元素<br><code>display: table-cell</code><br><code> vertiacal-align: middle</code></p>
+<h4 id="3-父flex-align-items"><a href="#3-父flex-align-items" class="headerlink" title="3) 父flex + align-items"></a>3) 父flex + align-items</h4><p>父元素 <code>display: flex;</code><br><code>align-items: center;</code></p>
+<h4 id="4-父flex-flex-direction-column-justify-content-center"><a href="#4-父flex-flex-direction-column-justify-content-center" class="headerlink" title="4) 父flex +flex-direction: column +justify-content: center"></a>4) 父flex +flex-direction: column +justify-content: center</h4><p>父元素 <code>display: flex;</code><br><code>flex-direction: column</code><br><code>justify-content: center </code></p>
+<p>使用伪元素::after 或 ::before和<code>vertical-align:middle</code></p>
+<h1 id="三、-水平垂直居中"><a href="#三、-水平垂直居中" class="headerlink" title="三、 水平垂直居中"></a>三、 <b style="color: lightblue">水平垂直居中</b></h1><h2 id="1、定宽高-：-父相对子绝对-左、上50-负margin左上一半高度"><a href="#1、定宽高-：-父相对子绝对-左、上50-负margin左上一半高度" class="headerlink" title="1、定宽高 ： 父相对子绝对 + 左、上50% + 负margin左上一半高度"></a>1、定宽高 ： 父相对子绝对 + 左、上50% + 负margin左上一半高度</h2><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute</code><br><code> top: 50%</code><br><code> left: 50%</code><br><code>margin: -50px 0  0 -25px</code></p>
+<h2 id="2、宽高未知-：-父相对子绝对-transform"><a href="#2、宽高未知-：-父相对子绝对-transform" class="headerlink" title="2、宽高未知 ： 父相对子绝对 + transform"></a>2、宽高未知 ： 父相对子绝对 + transform</h2><p>父元素 <code>position: relative</code></p>
+<p>子元素<br><code>position: absolute;</code><br><code> top: 50%;</code><br><code>transform: translate(-50%, -50%)</code></p>
+<h2 id="3、父flex-justify-content-align-items"><a href="#3、父flex-justify-content-align-items" class="headerlink" title="3、父flex + justify-content + align-items"></a>3、父flex + justify-content + align-items</h2><p>父元素 <code>display: flex;</code><br><code>align-items: center;</code><br><code>justify-content: center; </code></p>
+<h2 id="4、父grid-flex-子-margin-auto"><a href="#4、父grid-flex-子-margin-auto" class="headerlink" title="4、父grid/flex  + 子 margin: auto"></a>4、父grid/flex  + 子 margin: auto</h2><p>父元素 <code>display: grid</code>   或 <code>display: flex</code><br>子元素 <code>margin: auto</code></p>
+<p><em>nb</em></p>
+<h2 id="5、父table-cell布局-vertical-align-text-align"><a href="#5、父table-cell布局-vertical-align-text-align" class="headerlink" title="5、父table-cell布局 + vertical-align+ text-align"></a>5、父table-cell布局 + vertical-align+ text-align</h2><p>父元素 </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span>&#123;</span><br><span class="line">   <span class="attribute">display</span>: table-cell;</span><br><span class="line">   <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">   <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、父相对子绝对-上下左右0-margin-auto"><a href="#6、父相对子绝对-上下左右0-margin-auto" class="headerlink" title="6、父相对子绝对 + 上下左右0 + margin: auto"></a>6、父相对子绝对 + 上下左右0 + margin: auto</h2><p>父元素 <code>psotion: relative</code></p>
+<p>子元素 </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">position</span>: absolute;</span><br><span class="line"> <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line"> <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line"> <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line"> <span class="attribute">margin</span>: auto;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="四、实例"><a href="#四、实例" class="headerlink" title="四、实例"></a>四、实例</h1><h2 id="display-flex-margin-auto-不限定宽高"><a href="#display-flex-margin-auto-不限定宽高" class="headerlink" title="display: flex + margin: auto 不限定宽高"></a>display: flex + margin: auto 不限定宽高</h2><p><a class="link"   href="http://js.jirengu.com/fukacelelo/1/edit?html,css,output" >预览<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="display-grid-不限定宽高"><a href="#display-grid-不限定宽高" class="headerlink" title="display: grid 不限定宽高"></a>display: grid 不限定宽高</h2><p><a class="link"   href="http://js.jirengu.com/kaqocikuza/1/edit?html,css,output" >预览<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="绝对定位-position-absolute-calc-限定宽高"><a href="#绝对定位-position-absolute-calc-限定宽高" class="headerlink" title="绝对定位 position: absolute + calc() 限定宽高"></a>绝对定位 position: absolute + calc() 限定宽高</h2><p><a class="link"   href="http://js.jirengu.com/badenokoda/1/edit?html,css,output" >预览<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="absolute-margin"><a href="#absolute-margin" class="headerlink" title="absolute + margin"></a>absolute + margin</h2><p><a class="link"   href="http://js.jirengu.com/piboyemuve/1/edit?html,css,output" >预览<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="绝对定位-position-absolute-translate-不限定宽高"><a href="#绝对定位-position-absolute-translate-不限定宽高" class="headerlink" title="绝对定位 position: absolute + translate 不限定宽高"></a>绝对定位 position: absolute + translate 不限定宽高</h2><p><a class="link"   href="http://js.jirengu.com/jotuyevame/1/edit?html,css,output" >预览<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="仿table布局-display-table-table-cell-vertical-align-middle-不限定宽高"><a href="#仿table布局-display-table-table-cell-vertical-align-middle-不限定宽高" class="headerlink" title="仿table布局 display: table/table-cell + vertical-align: middle 不限定宽高"></a>仿table布局 display: table/table-cell + vertical-align: middle 不限定宽高</h2><p><a class="link"   href="http://js.jirengu.com/vopisaqubu/1/edit?html,css,output" >预览<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="伪元素-after-vertical-align-middle-不限定宽高"><a href="#伪元素-after-vertical-align-middle-不限定宽高" class="headerlink" title="伪元素 :after + vertical-align:middle 不限定宽高"></a>伪元素 :after + vertical-align:middle 不限定宽高</h2><p><a class="link"   href="http://js.jirengu.com/wavipocica/1/edit?html,css,output" >预览<i class="fas fa-external-link-alt"></i></a></p>
+<p>参考文章<a class="link"   href="https://lhammer.cn/You-need-to-know-css/#/zh-cn/flexbox-layout" >@_@<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <tags>
+        <tag>居中</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>回调函数</title>
+    <url>/2021/11/25/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="函数声明三种方式"><a href="#函数声明三种方式" class="headerlink" title="函数声明三种方式"></a>函数声明三种方式</h2><ul>
+<li>function(){}<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function print(s) &#123;</span><br><span class="line">  console.log(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>函数表达式<br>将匿名函数赋值给print<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var print = function(s) &#123;</span><br><span class="line">  console.log(s); </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>Function构造函数<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var add = new Function(</span><br><span class="line">  &#x27;x&#x27;,</span><br><span class="line">  &#x27;y&#x27;,</span><br><span class="line">  &#x27;return x + y&#x27;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2>按照 MDN 的描述：回调函数是作为参数传给另一个函数的函数，然后通过在外部函数内部调用该回调函数以完成某种操作。</li>
+</ul>
+<p>简单来说，回调函数是一个函数，将会在另一个函数完成执行后<strong>立即执行</strong>。回调函数是一个作为参数传给另一个 JavaScript 函数的函数。这个回调函数会在传给的函数内部执行 。</p>
+<h2 id="回调函数的作用"><a href="#回调函数的作用" class="headerlink" title="回调函数的作用"></a>回调函数的作用</h2><p>因为浏览器中的js运行是单线程的，需要使用回调函数来防止堵塞。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><h2 id="回调地狱"><a href="#回调地狱" class="headerlink" title="回调地狱"></a>回调地狱</h2><p>使用promise<br>借助 async-await<br>使用 async.js 库</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>函数的防抖和节流</title>
+    <url>/2021/12/13/%E9%98%B2%E6%8A%96+%E8%8A%82%E6%B5%81/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>防抖和节流</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面向对象编程(oop)难点合集</title>
+    <url>/2021/11/17/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-oop-%E9%9A%BE%E7%82%B9%E5%90%88%E9%9B%86/</url>
+    <content><![CDATA[<p><code>es5</code> <code>es6有class</code></p>
+<h2 id="理解对象"><a href="#理解对象" class="headerlink" title="理解对象"></a>理解对象</h2><p>有key value 的集合称为对象 ，函数和数组是一种特殊的对象（从对象的角度，有属性ex:<code> f.name --&gt; f</code>） 基本数据类型是对象?</p>
+<h2 id="实例对象和构造函数"><a href="#实例对象和构造函数" class="headerlink" title="实例对象和构造函数"></a>实例对象和构造函数</h2><p>构造函数来构造对象，<code>var p = new f</code>,p是f构造出来的对象，称为f的实例<br>三步：</p>
+<blockquote>
+<p>创建空对象，{}.<strong>proto</strong> === f.prototype<br>执行函数f,this指的的是obj环境下<br>返回new完成的obj</p>
+</blockquote>
+<hr>
+<p>例子</p>
+<blockquote>
+<p>function People(name, age){<br>    this.name = name<br>    this.age = age<br>    //return ‘hello’ (注意return的内容 一般情况下会被覆盖，当return的数据结构与People相同时,return的值)<br>}<br>var p = new People(‘饥人谷’, 3)<br><img src="https://github.com/stevechen1/blog_source/blob/main/return.png?raw=true"></p>
+</blockquote>
+<h2 id="prototype-和-proto-的关系"><a href="#prototype-和-proto-的关系" class="headerlink" title="prototype 和 __proto__的关系"></a>prototype 和 __proto__的关系</h2><p>记住下面的图<img src="https://github.com/stevechen1/blog_source/blob/main/prototype.png?raw=true" alt="原型链"></p>
+<blockquote>
+<p>函数一般放到prototype对象上方便调用</p>
+</blockquote>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>Object   Function</p>
+<hr>
+<p>Object是一切对象的__proto__<br><code>Object.prototype.__proto__ = null</code><img src="https://github.com/stevechen1/blog_source/blob/main/Object.png?raw=true" alt="object"><br><code>Object.__proto__ === Function.prototype</code>//Object是函数<br>Function是一切函数的__proto__(Function.<strong>proto</strong> === Function.prototype)true</p>
+<hr>
+<p>四类：理清关系</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function p()&#123;&#125;  //函数</span><br><span class="line">var a = new p  // 对象</span><br><span class="line">Function   // 函数</span><br><span class="line">Object(valueOf,toString) // 函数</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法的应用-gt-轮播的实现"><a href="#方法的应用-gt-轮播的实现" class="headerlink" title="方法的应用==&gt;轮播的实现"></a>方法的应用==&gt;轮播的实现</h2>]]></content>
+      <tags>
+        <tag>Object  prototype __proto__ 原型和原型链</tag>
+      </tags>
+  </entry>
+</search>
