@@ -234,7 +234,7 @@
 <h2 id="2、块级元素垂直居中"><a href="#2、块级元素垂直居中" class="headerlink" title="2、块级元素垂直居中"></a>2、块级元素垂直居中</h2><h3 id="1-定高：-父相对子绝对-上50-负上高度一般margin"><a href="#1-定高：-父相对子绝对-上50-负上高度一般margin" class="headerlink" title="(1) 定高： 父相对子绝对 + 上50% + 负上高度一般margin"></a>(1) 定高： 父相对子绝对 + 上50% + 负上高度一般margin</h3><p>父元素 <code>position: relative</code></p>
 <p>子元素<br><code>position: absolute;</code><br><code>top: calc(50% - 自身高度)</code><br><code>line-height: 自身高度</code>   （文本垂直居中）</p>
 <h3 id="2-未知高度"><a href="#2-未知高度" class="headerlink" title="(2) 未知高度"></a>(2) 未知高度</h3><h4 id="1-父相对子绝对-上50-上偏移50"><a href="#1-父相对子绝对-上50-上偏移50" class="headerlink" title="1) 父相对子绝对 + 上50%  + 上偏移50%"></a>1) 父相对子绝对 + 上50%  + 上偏移50%</h4><p>父元素 <code>position: relative</code></p>
-<p>子元素<br><code>position: absolute;</code><br><code> top: 50%;</code><br><code>transform: translateY(-50%)</code></p>
+<p>子元素<br><code>position: absolute;</code><br><code>  left: 50%;</code><br><code> top: 50%;</code><br><code>transform: translateY(-50%)</code></p>
 <h4 id="2-父table布局-子table-cell-vertical-align-middle"><a href="#2-父table布局-子table-cell-vertical-align-middle" class="headerlink" title="2) 父table布局 + 子table-cell + vertical-align: middle"></a>2) 父table布局 + 子table-cell + vertical-align: middle</h4><p>父元素 <code>display: table</code></p>
 <p>子元素<br><code>display: table-cell</code><br><code> vertiacal-align: middle</code></p>
 <h4 id="3-父flex-align-items"><a href="#3-父flex-align-items" class="headerlink" title="3) 父flex + align-items"></a>3) 父flex + align-items</h4><p>父元素 <code>display: flex;</code><br><code>align-items: center;</code></p>
