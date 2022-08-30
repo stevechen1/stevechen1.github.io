@@ -13,6 +13,14 @@
       </tags>
   </entry>
   <entry>
+    <title>How to Add Text in Borders</title>
+    <url>/2022/08/09/How%20to%20Add%20Text%20in%20Borders/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>border</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ajax与mock数据</title>
     <url>/2021/12/09/ajax%E4%B8%8Emock%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[<h1 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest()</span><br><span class="line">   xhr.open(&#x27;GET&#x27;,&#x27;/login/index&#x27;,true)  //get &#x27;/login?usename=jirengu&amp;password=123&#x27; 拼接url</span><br><span class="line">   xhr.send()  // POST 在send()里面加入资源</span><br></pre></td></tr></table></figure>
@@ -91,43 +99,6 @@
       </tags>
   </entry>
   <entry>
-    <title>css-hover</title>
-    <url>/2021/11/04/css-hover/</url>
-    <content><![CDATA[<p>css 中的:hover对其他元素<strong>产生作用</strong>的可以使用的情况有以下几种<br>1.其他元素在child中 直接空格就可以使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.box:hover .child</span><br></pre></td></tr></table></figure>
-<p>2.其他元素在同级中 通过选择器~ or +有共同的父元素 (相邻兄弟选择器 (+) 通用兄弟选择器 (~) )</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.box1:hover ~ .box2</span><br><span class="line">.box1:hover + .box2</span><br></pre></td></tr></table></figure>
-<p>总结： 上述只是简单的css中的操作 以上都可以通过js 的calss操作解决</p>
-]]></content>
-      <tags>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>axios使用 与 源码解析*</title>
-    <url>/2021/12/21/axios+%E6%BA%90%E7%A0%81/</url>
-    <content><![CDATA[<h1 id="axios-使用"><a href="#axios-使用" class="headerlink" title="axios 使用"></a>axios 使用</h1><h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1.基本使用"></a>1.基本使用</h2><p>axios可以使用<strong>函数</strong>形式带入参数也可以使用<strong>对象方法</strong>来带入配置对象</p>
-<h3 id="i-函数axios-…"><a href="#i-函数axios-…" class="headerlink" title="i. 函数axios({….})"></a>i. 函数axios({….})</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//get</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts/2&#x27;</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//post</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    <span class="comment">//请求类型</span></span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="comment">//URL</span></span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span><br><span class="line">    <span class="comment">//设置请求体</span></span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;今天天气不错&#x27;</span>,</span><br><span class="line">        <span class="attr">author</span>: <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;suc&#x27;</span>,response);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="ii-对象的方法"><a href="#ii-对象的方法" class="headerlink" title="ii.对象的方法"></a>ii.对象的方法</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">    <span class="comment">//get</span></span><br><span class="line">    axios.get( <span class="string">&#x27;http://localhost:3000/comments&#x27;</span>).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(response);</span><br><span class="line">        &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(err);</span><br><span class="line">        &#125;); </span><br><span class="line">        <span class="comment">//POST</span></span><br><span class="line">         btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">         axios.post(<span class="string">&#x27;http://localhost:3000/comments&#x27;</span>,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">&quot;body&quot;</span>: <span class="string">&quot;妈妈咪呀&quot;</span>,</span><br><span class="line">                <span class="string">&quot;postId&quot;</span>: <span class="number">2</span></span><br><span class="line">             &#125;).then(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;</span><br><span class="line">                 <span class="built_in">console</span>.log(responese);</span><br><span class="line">             &#125;)</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<h2 id="2-创建实例对象"><a href="#2-创建实例对象" class="headerlink" title="2.创建实例对象"></a>2.创建实例对象</h2><p>当需要请求多个地址的资源时，需要使用实例对象的方法来请求，使用api（ axios.create()）</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instanceObj = axios.create(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;https://api.apiopen.top&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">2000</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// instanceObj 与 axios 的实例对象 的使用方法基本一直</span></span><br><span class="line">instanceObj(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/getJoke&#x27;</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.data.result[<span class="number">1</span>].text);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="3-常用配置介绍"><a href="#3-常用配置介绍" class="headerlink" title="3.常用配置介绍"></a>3.常用配置介绍</h2><p>url<br>method<br>baseURL<br>headers<br>params<br>data<br>timeout<br>cancelToken</p>
-<h2 id="4-默认配置"><a href="#4-默认配置" class="headerlink" title="4.默认配置"></a>4.默认配置</h2><p>可以配置默认值</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.defaults.method = <span class="string">&#x27;GET&#x27;</span></span><br><span class="line">axios.defaults.baseURL = <span class="string">&#x27;http://localhost:3000&#x27;</span></span><br><span class="line">axios.defaults.params = &#123;<span class="attr">id</span>: <span class="number">199</span>&#125;</span><br><span class="line">axios.defaults.timeout = <span class="number">2000</span></span><br><span class="line">axios(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;/posts&#x27;</span></span><br><span class="line">    &#125;).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="5-拦截器"><a href="#5-拦截器" class="headerlink" title="5.拦截器"></a>5.拦截器</h2><h3 id="一、请求拦截器："><a href="#一、请求拦截器：" class="headerlink" title="一、请求拦截器："></a>一、请求拦截器：</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> config; <span class="comment">// config可以设置来影响默认设置</span></span><br><span class="line">        <span class="keyword">throw</span>   error     <span class="comment">// 直接走失败的.catch</span></span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Do something with request error</span></span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="二、接受拦截器"><a href="#二、接受拦截器" class="headerlink" title="二、接受拦截器"></a>二、接受拦截器</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> response; <span class="comment">// 可以对接受的结果进行处理，不需要接受所有的数据</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios(&#123;</span><br><span class="line">           <span class="attr">mehtod</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">           <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span></span><br><span class="line">       &#125;).then(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;</span><br><span class="line">           <span class="built_in">console</span>.log(response);</span><br><span class="line">       &#125;).catch(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">           <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">       &#125;)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="6-取消请求"><a href="#6-取消请求" class="headerlink" title="6.取消请求"></a>6.取消请求</h2><p>在发送请求的基础上，在传入的配置对象中，添加属性cancelToke</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line">      <span class="keyword">let</span> cancel = <span class="literal">null</span></span><br><span class="line">      <span class="comment">//发送请求</span></span><br><span class="line">      btns[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="comment">//判断上一次请求是否结束</span></span><br><span class="line">          <span class="keyword">if</span>(cancel !== <span class="literal">null</span>)&#123;</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          &#125;</span><br><span class="line">          axios(&#123;</span><br><span class="line">              <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">              <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span><br><span class="line">              <span class="comment">//添加配置对象的属性</span></span><br><span class="line">              <span class="attr">cancelToken</span>: <span class="keyword">new</span> axios.CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">c</span>)</span>&#123;</span><br><span class="line">                  <span class="comment">//将c的值赋给cancel</span></span><br><span class="line">                  cancel = c</span><br><span class="line">                  <span class="built_in">console</span>.log(cancel);</span><br><span class="line">              &#125;)</span><br><span class="line">          &#125;).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;返回值&#x27;</span>,res);</span><br><span class="line">              <span class="comment">//当完成时cancel变为null</span></span><br><span class="line">              cancel = <span class="literal">null</span></span><br><span class="line">          &#125;).catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;err&#x27;</span>,err);</span><br><span class="line">          &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//取消请求</span></span><br><span class="line">      btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          cancel()</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>axios</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DOM操作</title>
     <url>/2021/11/19/dom/</url>
     <content><![CDATA[<h2 id="dcoument"><a href="#dcoument" class="headerlink" title="dcoument"></a>dcoument</h2><p><strong>document.doctype</strong><br><strong>document.title</strong><br><strong>document.characterSet</strong><br><strong>document.head</strong><br><strong>document.body</strong><br><strong>document.images</strong></p>
@@ -181,6 +152,43 @@
       </tags>
   </entry>
   <entry>
+    <title>axios使用 与 源码解析*</title>
+    <url>/2021/12/21/axios+%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<h1 id="axios-使用"><a href="#axios-使用" class="headerlink" title="axios 使用"></a>axios 使用</h1><h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1.基本使用"></a>1.基本使用</h2><p>axios可以使用<strong>函数</strong>形式带入参数也可以使用<strong>对象方法</strong>来带入配置对象</p>
+<h3 id="i-函数axios-…"><a href="#i-函数axios-…" class="headerlink" title="i. 函数axios({….})"></a>i. 函数axios({….})</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//get</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts/2&#x27;</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//post</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    <span class="comment">//请求类型</span></span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="comment">//URL</span></span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span><br><span class="line">    <span class="comment">//设置请求体</span></span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;今天天气不错&#x27;</span>,</span><br><span class="line">        <span class="attr">author</span>: <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;suc&#x27;</span>,response);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="ii-对象的方法"><a href="#ii-对象的方法" class="headerlink" title="ii.对象的方法"></a>ii.对象的方法</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">    <span class="comment">//get</span></span><br><span class="line">    axios.get( <span class="string">&#x27;http://localhost:3000/comments&#x27;</span>).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(response);</span><br><span class="line">        &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(err);</span><br><span class="line">        &#125;); </span><br><span class="line">        <span class="comment">//POST</span></span><br><span class="line">         btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">         axios.post(<span class="string">&#x27;http://localhost:3000/comments&#x27;</span>,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">&quot;body&quot;</span>: <span class="string">&quot;妈妈咪呀&quot;</span>,</span><br><span class="line">                <span class="string">&quot;postId&quot;</span>: <span class="number">2</span></span><br><span class="line">             &#125;).then(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;</span><br><span class="line">                 <span class="built_in">console</span>.log(responese);</span><br><span class="line">             &#125;)</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h2 id="2-创建实例对象"><a href="#2-创建实例对象" class="headerlink" title="2.创建实例对象"></a>2.创建实例对象</h2><p>当需要请求多个地址的资源时，需要使用实例对象的方法来请求，使用api（ axios.create()）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instanceObj = axios.create(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;https://api.apiopen.top&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">2000</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// instanceObj 与 axios 的实例对象 的使用方法基本一直</span></span><br><span class="line">instanceObj(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/getJoke&#x27;</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.data.result[<span class="number">1</span>].text);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="3-常用配置介绍"><a href="#3-常用配置介绍" class="headerlink" title="3.常用配置介绍"></a>3.常用配置介绍</h2><p>url<br>method<br>baseURL<br>headers<br>params<br>data<br>timeout<br>cancelToken</p>
+<h2 id="4-默认配置"><a href="#4-默认配置" class="headerlink" title="4.默认配置"></a>4.默认配置</h2><p>可以配置默认值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.defaults.method = <span class="string">&#x27;GET&#x27;</span></span><br><span class="line">axios.defaults.baseURL = <span class="string">&#x27;http://localhost:3000&#x27;</span></span><br><span class="line">axios.defaults.params = &#123;<span class="attr">id</span>: <span class="number">199</span>&#125;</span><br><span class="line">axios.defaults.timeout = <span class="number">2000</span></span><br><span class="line">axios(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;/posts&#x27;</span></span><br><span class="line">    &#125;).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="5-拦截器"><a href="#5-拦截器" class="headerlink" title="5.拦截器"></a>5.拦截器</h2><h3 id="一、请求拦截器："><a href="#一、请求拦截器：" class="headerlink" title="一、请求拦截器："></a>一、请求拦截器：</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> config; <span class="comment">// config可以设置来影响默认设置</span></span><br><span class="line">        <span class="keyword">throw</span>   error     <span class="comment">// 直接走失败的.catch</span></span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Do something with request error</span></span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="二、接受拦截器"><a href="#二、接受拦截器" class="headerlink" title="二、接受拦截器"></a>二、接受拦截器</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> response; <span class="comment">// 可以对接受的结果进行处理，不需要接受所有的数据</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios(&#123;</span><br><span class="line">           <span class="attr">mehtod</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">           <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span></span><br><span class="line">       &#125;).then(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;</span><br><span class="line">           <span class="built_in">console</span>.log(response);</span><br><span class="line">       &#125;).catch(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">           <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">       &#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-取消请求"><a href="#6-取消请求" class="headerlink" title="6.取消请求"></a>6.取消请求</h2><p>在发送请求的基础上，在传入的配置对象中，添加属性cancelToke</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line">      <span class="keyword">let</span> cancel = <span class="literal">null</span></span><br><span class="line">      <span class="comment">//发送请求</span></span><br><span class="line">      btns[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="comment">//判断上一次请求是否结束</span></span><br><span class="line">          <span class="keyword">if</span>(cancel !== <span class="literal">null</span>)&#123;</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          &#125;</span><br><span class="line">          axios(&#123;</span><br><span class="line">              <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">              <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span><br><span class="line">              <span class="comment">//添加配置对象的属性</span></span><br><span class="line">              <span class="attr">cancelToken</span>: <span class="keyword">new</span> axios.CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">c</span>)</span>&#123;</span><br><span class="line">                  <span class="comment">//将c的值赋给cancel</span></span><br><span class="line">                  cancel = c</span><br><span class="line">                  <span class="built_in">console</span>.log(cancel);</span><br><span class="line">              &#125;)</span><br><span class="line">          &#125;).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;返回值&#x27;</span>,res);</span><br><span class="line">              <span class="comment">//当完成时cancel变为null</span></span><br><span class="line">              cancel = <span class="literal">null</span></span><br><span class="line">          &#125;).catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;err&#x27;</span>,err);</span><br><span class="line">          &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//取消请求</span></span><br><span class="line">      btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          cancel()</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>axios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>css-hover</title>
+    <url>/2021/11/04/css-hover/</url>
+    <content><![CDATA[<p>css 中的:hover对其他元素<strong>产生作用</strong>的可以使用的情况有以下几种<br>1.其他元素在child中 直接空格就可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.box:hover .child</span><br></pre></td></tr></table></figure>
+<p>2.其他元素在同级中 通过选择器~ or +有共同的父元素 (相邻兄弟选择器 (+) 通用兄弟选择器 (~) )</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.box1:hover ~ .box2</span><br><span class="line">.box1:hover + .box2</span><br></pre></td></tr></table></figure>
+<p>总结： 上述只是简单的css中的操作 以上都可以通过js 的calss操作解决</p>
+]]></content>
+      <tags>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>dom操作</title>
     <url>/2021/12/09/dom%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h1 id="dcoument"><a href="#dcoument" class="headerlink" title="dcoument"></a>dcoument</h1><p><strong>document.doctype</strong><br><strong>document.title</strong><br><strong>document.characterSet</strong><br><strong>document.head</strong><br><strong>document.body</strong><br><strong>document.images</strong></p>
@@ -229,6 +237,26 @@
 <p><code>tips</code><br>scrollTop + clientHeight = scrollHeight//是否到达底部的判断<br>对象是否在页面中判断//<strong>懒加载</strong></p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><strong>HTMLCllection和NodeList(forEach)</strong></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>hexo+github+blog的实现</title>
+    <url>/2021/11/01/hexo+blog%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="1-hexo官网"><a href="#1-hexo官网" class="headerlink" title="1. hexo官网"></a>1. hexo官网</h1><p> <a class="link"   href="https://hexo.io/zh-cn/" >官网<i class="fas fa-external-link-alt"></i></a></p>
+<p>可以直接根据官网教程</p>
+<h1 id="2-安装-hexo-cli"><a href="#2-安装-hexo-cli" class="headerlink" title="2. 安装 hexo-cli"></a>2. 安装 hexo-cli</h1><p><code>npm install hexo-cli -g</code></p>
+<p><em>需要node.js支持  v16.14.0</em> </p>
+<h1 id="3-配置github"><a href="#3-配置github" class="headerlink" title="3. 配置github"></a>3. 配置github</h1><p>github创建仓库 <code>stevechen1.github.io</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    <span class="attr">repo</span>: git@github.con:username/username.github.io.git</span><br><span class="line">    <span class="attr">branch</span>: master</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-主题配置"><a href="#4-主题配置" class="headerlink" title="4.主题配置"></a>4.主题配置</h1><p>我用的主题是fluid<br><a href="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>npm install --save hexo-theme-fluid</code></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>配置<br>在_config.yml文件中改<br><code>theme: fluid</code></p>
+<h1 id="5-hexo指令"><a href="#5-hexo指令" class="headerlink" title="5.hexo指令"></a>5.hexo指令</h1><p><code>hexo init</code> 初始化<br><code>hexo new &#39;title&#39;</code><br><code>hexo clean</code><br><code>hexo g</code><br><code>hexo d</code><br><code>hexo s</code></p>
+<h1 id="6-个人域名"><a href="#6-个人域名" class="headerlink" title="6.个人域名"></a>6.个人域名</h1><h3 id="企鹅云上购买域名"><a href="#企鹅云上购买域名" class="headerlink" title="企鹅云上购买域名"></a>企鹅云上购买域名</h3><h3 id="配置域名-进入dnspod"><a href="#配置域名-进入dnspod" class="headerlink" title="配置域名 进入dnspod"></a>配置域名 进入dnspod</h3><p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/dnspod.png" alt="配置"></p>
+<h3 id="在source文件家中新建CNAME文件"><a href="#在source文件家中新建CNAME文件" class="headerlink" title="在source文件家中新建CNAME文件"></a>在source文件家中新建CNAME文件</h3><h3 id="用vscode-打开-写入域名-例如我就写入12am-top-保存"><a href="#用vscode-打开-写入域名-例如我就写入12am-top-保存" class="headerlink" title="用vscode 打开 写入域名 例如我就写入12am.top 保存"></a>用vscode 打开 写入域名 例如我就写入<code>12am.top</code> 保存</h3><h3 id="执行hexo-d-提交到github"><a href="#执行hexo-d-提交到github" class="headerlink" title="执行hexo d 提交到github"></a>执行<code>hexo d</code> 提交到github</h3><h3 id="打开12am-top-完成"><a href="#打开12am-top-完成" class="headerlink" title="打开12am.top 完成"></a>打开12am.top 完成</h3>]]></content>
+      <tags>
+        <tag>blog</tag>
+      </tags>
   </entry>
   <entry>
     <title>nodejs搭建静态服务器</title>
@@ -369,26 +397,6 @@ iii.promise对象
 ]]></content>
   </entry>
   <entry>
-    <title>hexo+github+blog的实现</title>
-    <url>/2021/11/01/hexo+blog%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="1-hexo官网"><a href="#1-hexo官网" class="headerlink" title="1. hexo官网"></a>1. hexo官网</h1><p> <a class="link"   href="https://hexo.io/zh-cn/" >官网<i class="fas fa-external-link-alt"></i></a></p>
-<p>可以直接根据官网教程</p>
-<h1 id="2-安装-hexo-cli"><a href="#2-安装-hexo-cli" class="headerlink" title="2. 安装 hexo-cli"></a>2. 安装 hexo-cli</h1><p><code>npm install hexo-cli -g</code></p>
-<p><em>需要node.js支持  v16.14.0</em> </p>
-<h1 id="3-配置github"><a href="#3-配置github" class="headerlink" title="3. 配置github"></a>3. 配置github</h1><p>github创建仓库 <code>stevechen1.github.io</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    <span class="attr">repo</span>: git@github.con:username/username.github.io.git</span><br><span class="line">    <span class="attr">branch</span>: master</span><br></pre></td></tr></table></figure>
-
-<h1 id="4-主题配置"><a href="#4-主题配置" class="headerlink" title="4.主题配置"></a>4.主题配置</h1><p>我用的主题是fluid<br><a href="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>npm install --save hexo-theme-fluid</code></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>配置<br>在_config.yml文件中改<br><code>theme: fluid</code></p>
-<h1 id="5-hexo指令"><a href="#5-hexo指令" class="headerlink" title="5.hexo指令"></a>5.hexo指令</h1><p><code>hexo init</code> 初始化<br><code>hexo new &#39;title&#39;</code><br><code>hexo clean</code><br><code>hexo g</code><br><code>hexo d</code><br><code>hexo s</code></p>
-<h1 id="6-个人域名"><a href="#6-个人域名" class="headerlink" title="6.个人域名"></a>6.个人域名</h1><h3 id="企鹅云上购买域名"><a href="#企鹅云上购买域名" class="headerlink" title="企鹅云上购买域名"></a>企鹅云上购买域名</h3><h3 id="配置域名-进入dnspod"><a href="#配置域名-进入dnspod" class="headerlink" title="配置域名 进入dnspod"></a>配置域名 进入dnspod</h3><p><img src="https://raw.githubusercontent.com/stevechen1/blog_source/main/dnspod.png" alt="配置"></p>
-<h3 id="在source文件家中新建CNAME文件"><a href="#在source文件家中新建CNAME文件" class="headerlink" title="在source文件家中新建CNAME文件"></a>在source文件家中新建CNAME文件</h3><h3 id="用vscode-打开-写入域名-例如我就写入12am-top-保存"><a href="#用vscode-打开-写入域名-例如我就写入12am-top-保存" class="headerlink" title="用vscode 打开 写入域名 例如我就写入12am.top 保存"></a>用vscode 打开 写入域名 例如我就写入<code>12am.top</code> 保存</h3><h3 id="执行hexo-d-提交到github"><a href="#执行hexo-d-提交到github" class="headerlink" title="执行hexo d 提交到github"></a>执行<code>hexo d</code> 提交到github</h3><h3 id="打开12am-top-完成"><a href="#打开12am-top-完成" class="headerlink" title="打开12am.top 完成"></a>打开12am.top 完成</h3>]]></content>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>this</title>
     <url>/2021/11/04/this/</url>
     <content><![CDATA[<p>参考文章 <a class="link"   href="https://zhuanlan.zhihu.com/p/23804247" >知乎<i class="fas fa-external-link-alt"></i></a></p>
@@ -401,6 +409,17 @@ iii.promise对象
 ]]></content>
       <tags>
         <tag>this</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue</title>
+    <url>/2022/06/16/vue/</url>
+    <content><![CDATA[<h1 id="vue2"><a href="#vue2" class="headerlink" title="vue2"></a>vue2</h1><p>Object.defineProperty(对象，属性，值)</p>
+<h2 id="值"><a href="#值" class="headerlink" title="值"></a>值</h2><p>是对象</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -465,17 +484,6 @@ iii.promise对象
       </tags>
   </entry>
   <entry>
-    <title>vue</title>
-    <url>/2022/06/16/vue/</url>
-    <content><![CDATA[<h1 id="vue2"><a href="#vue2" class="headerlink" title="vue2"></a>vue2</h1><p>Object.defineProperty(对象，属性，值)</p>
-<h2 id="值"><a href="#值" class="headerlink" title="值"></a>值</h2><p>是对象</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>回调函数</title>
     <url>/2021/11/25/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h2 id="函数声明三种方式"><a href="#函数声明三种方式" class="headerlink" title="函数声明三种方式"></a>函数声明三种方式</h2><ul>
@@ -488,14 +496,6 @@ iii.promise对象
 <h2 id="回调函数的作用"><a href="#回调函数的作用" class="headerlink" title="回调函数的作用"></a>回调函数的作用</h2><p>因为浏览器中的js运行是单线程的，需要使用回调函数来防止堵塞。</p>
 <h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><h2 id="回调地狱"><a href="#回调地狱" class="headerlink" title="回调地狱"></a>回调地狱</h2><p>使用promise<br>借助 async-await<br>使用 async.js 库</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>函数的防抖和节流</title>
-    <url>/2021/12/13/%E9%98%B2%E6%8A%96+%E8%8A%82%E6%B5%81/</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>防抖和节流</tag>
-      </tags>
   </entry>
   <entry>
     <title>面向对象编程(oop)难点合集</title>
@@ -525,6 +525,14 @@ iii.promise对象
 <h2 id="方法的应用-gt-轮播的实现"><a href="#方法的应用-gt-轮播的实现" class="headerlink" title="方法的应用==&gt;轮播的实现"></a>方法的应用==&gt;轮播的实现</h2>]]></content>
       <tags>
         <tag>Object  prototype __proto__ 原型和原型链</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>函数的防抖和节流</title>
+    <url>/2021/12/13/%E9%98%B2%E6%8A%96+%E8%8A%82%E6%B5%81/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>防抖和节流</tag>
       </tags>
   </entry>
 </search>
